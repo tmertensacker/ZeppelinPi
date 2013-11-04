@@ -6,9 +6,11 @@ import java.io.*;
 public class Listener extends Thread
 {
 	private ServerSocket serverSocket;
-   
+	private Pi pi;
+	
 	public Listener(int port) throws IOException
 	{
+		this.pi = new Pi();
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
 	}
@@ -22,22 +24,27 @@ public class Listener extends Thread
 				DataInputStream in = new DataInputStream(server.getInputStream());
 				String inMsg = in.readUTF();
 				OutputStream out = server.getOutputStream();
-				if(inMsg.equals("get distance")){
-					DistanceMonitor monitor = new DistanceMonitor();
-					// Zoek de mediaan van N measurements...
-					float distance = monitor.measureDistance();
-					//out.writeUTF(Float.toString(distance));
+				DataOutputStream outData = new DataOutputStream(out);
+				//TODO: alle commando's uitwerken!
+				if(inMsg.equals("get height")){ //TODO: commando's aaneen schrijven
+					float height = pi.getHeight();
+					outData.writeUTF(Float.toString(height));
 				}
 				else if(inMsg.equals("get picture")){
-					Camera camera = new Camera();
-					camera.makePicture();
+					pi.takePicture();
 					InputStream inFile = new FileInputStream("picture.jpg");                        
 					copy(inFile, out);
 					inFile.close();
 				}
-				else if(inMsg.equals("start motor up")){
-					
-					//out.writeUTF("starting motor...");          		
+				else if(inMsg.equals("turn right start"))
+					pi.turnRightStart();
+				else if(inMsg.equals("turn right stop"))
+					pi.turnRightStop();
+				else if(inMsg.contains("turnright")){
+					String[] split = inMsg.split("\\s+");
+					if(split.length > 2 )
+						System.out.println(split[2]); //TODO: wordt 1.
+					pi.turnRight(Integer.parseInt(split[2]));   
 				}
 				else{
 					//out.writeUTF("error: unknown command");				
@@ -63,15 +70,4 @@ public class Listener extends Thread
 		}
 	}
 
-	public static void main(String [] args)
-	{
-		int port = Integer.parseInt(args[0]); 	
-		try{
-	 		Thread t = new Listener(port);
-			t.start();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-	}
 }

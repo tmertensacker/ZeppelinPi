@@ -34,6 +34,8 @@ public class PIState{
 		
 	}
 	
+	//TODO: tostring voor return-value
+	
 	/**
 	* Toggles the state of the bottom motor.
 	* If the current state is 0, the state is set to 1.

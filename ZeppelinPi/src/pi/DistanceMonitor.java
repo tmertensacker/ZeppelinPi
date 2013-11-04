@@ -42,13 +42,13 @@ public class DistanceMonitor {
 	//private final PIState state;
    
 	//VOOR state nog het object vd PIState meegeven???
-   public DistanceMonitor(PIState state) {
+   public DistanceMonitor() {
 		this.trigPin.low();
 		//this.state = state;
     }
 	
 	/*
-	 * This method returns the median of ///een aantal N, moet getest worden/// measured distances.
+	 * This method returns the median of TODO:///een aantal N, moet getest worden/// measured distances.
 	 *
 	 */
 	public float measureDistance() {

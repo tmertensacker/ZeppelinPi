@@ -21,8 +21,19 @@ public class Pi {
 		myHeightMotor = new MotorPwm();
 	}
 	
+	public static void main(String [] args)
+	{
+		int port = Integer.parseInt(args[0]); 	
+		try{
+	 		Thread t = new Listener(port);
+			t.start();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}	
 	
-	public double getDistance() {
+	public float getHeight() {
 		return myDistance.getDistance();
 	}
 	
