@@ -5,9 +5,11 @@ import java.io.*;
 public class Listener extends Thread
 {
 	private ServerSocket serverSocket;
-   
-	public Listener(int port) throws IOException
+	private Pi pi;
+	
+	public Listener(int port, Pi pi) throws IOException
 	{
+		this.pi = pi;
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
 	}
@@ -21,21 +23,24 @@ public class Listener extends Thread
 				DataInputStream in = new DataInputStream(server.getInputStream());
 				String inMsg = in.readUTF();
 				OutputStream out = server.getOutputStream();
+				DataOutputStream outData = new DataOutputStream(out);
 				if(inMsg.equals("get distance")){
-					DistanceMonitor monitor = new DistanceMonitor();
+					//DistanceMonitor monitor = new DistanceMonitor();
 					// Zoek de mediaan van N measurements...
-					float distance = monitor.measureDistance();
-					//out.writeUTF(Float.toString(distance));
+					//float distance = monitor.measureDistance();
+					float distance = pi.getHeight();
+					outData.writeUTF(Float.toString(distance));
 				}
 				else if(inMsg.equals("get picture")){
-					Camera camera = new Camera();
-					camera.makePicture();
+					/*Camera camera = new Camera();
+					camera.makePicture();*/
+					pi.makePicture();
 					InputStream inFile = new FileInputStream("picture.jpg");                        
 					copy(inFile, out);
 					inFile.close();
 				}
 				else if(inMsg.equals("start motor up")){
-					
+					pi.startMotorUp();
 					//out.writeUTF("starting motor...");          		
 				}
 				else{

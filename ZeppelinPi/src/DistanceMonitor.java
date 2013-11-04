@@ -47,7 +47,7 @@ public class DistanceMonitor {
     }
 	
 	/*
-	 * This method returns the median of ///een aantal N, moet getest worden/// measured distances.
+	 * This method returns the median of TODO:///een aantal N, moet getest worden/// measured distances.
 	 *
 	 */
 	public float measureDistance() {
