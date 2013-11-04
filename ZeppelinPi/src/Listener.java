@@ -1,3 +1,4 @@
+
 import java.net.*;
 import java.io.*;
 
@@ -20,15 +21,13 @@ public class Listener extends Thread
 				DataInputStream in = new DataInputStream(server.getInputStream());
 				String inMsg = in.readUTF();
 				OutputStream out = server.getOutputStream();
-				DataOutputStream dataOut = new DataOutputStream(out);
 				if(inMsg.equals("get distance")){
 					DistanceMonitor monitor = new DistanceMonitor();
 					// Zoek de mediaan van N measurements...
 					float distance = monitor.measureDistance();
-					dataOut.writeUTF(Float.toString(distance));
+					//out.writeUTF(Float.toString(distance));
 				}
 				else if(inMsg.equals("get picture")){
-					// pi.makePicture()
 					Camera camera = new Camera();
 					camera.makePicture();
 					InputStream inFile = new FileInputStream("picture.jpg");                        
@@ -36,11 +35,10 @@ public class Listener extends Thread
 					inFile.close();
 				}
 				else if(inMsg.equals("start motor up")){
-					// pi.startMotorUp
+					
 					//out.writeUTF("starting motor...");          		
 				}
 				else{
-					throw new IOException();
 					//out.writeUTF("error: unknown command");				
 				}
 				server.close();
