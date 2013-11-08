@@ -1,5 +1,6 @@
 package pi;
 import java.io.IOException;
+import com.pi4j.io.gpio.*;
 
 
 
@@ -14,25 +15,37 @@ public class Pi {
 	
 	public Pi() {
 		myDistance = new DistanceMonitor();
-		myHeightManager = new HeightManager(myDistance);
 		myCamera = new Camera();
-		myLeftMotor = new MotorFixed();
-		myRightMotor = new MotorFixed();
-		myHeightMotor = new MotorPwm();
+		//aanpassen naar juiste pinnnen!
+		Pin pin1 = RaspiPin.GPIO_10;
+		Pin pin2 = RaspiPin.GPIO_11;
+		Pin pin3 = RaspiPin.GPIO_12;
+		Pin pin4 = RaspiPin.GPIO_13;
+		Pin pin5 = RaspiPin.GPIO_14;
+		Pin pin6 = RaspiPin.GPIO_15;
+		myLeftMotor = new MotorFixed(pin1,pin2);
+		myRightMotor = new MotorFixed(pin3,pin4);
+		myHeightMotor = new MotorPwm(pin5,pin6);
+		myHeightManager = new HeightManager(myHeightMotor);
 	}
 	
 	public static void main(String [] args)
 	{
-		int port = Integer.parseInt(args[0]); 	
+		int port = Integer.parseInt(args[0]);
+		Pi pi = new Pi();
 		try{
-	 		Thread t = new Listener(port);
+	 		Thread t = new Listener(port, pi);
+	 		Thread hm = new Thread(pi.getHM());
 			t.start();
+			hm.start();
 		}
 		catch(IOException e){
 			e.printStackTrace();
 		}
 	}	
-	
+	public HeightManager getHM() {
+		return myHeightManager;
+	}
 	public float getHeight() {
 		return myDistance.getDistance();
 	}
@@ -48,8 +61,8 @@ public class Pi {
 	public void forwardStart(){
 		// methodes in PiState kunnen nog veranderen.
 		
-		//myLeftMotor.setOn(richting 1)
-		//myRightMotor.setOn(richting 1)
+		myLeftMotor.triggerForwardOn();
+		myRightMotor.triggerForwardOn();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
@@ -57,14 +70,13 @@ public class Pi {
 	public void forwardStop() {
 		// methodes in PiState kunnen nog verandern.
 		
-		//myLeftMotor.setOff
-		//myRightMotor.setOff
+		myLeftMotor.triggerForwardOff();
+		myRightMotor.triggerForwardOff();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
 	
 	public void forward(int time) {
-		//double currentTime = System.currentTimeMillis();
 		forwardStart();
 		try {
 			Thread.sleep(time);
@@ -78,8 +90,8 @@ public class Pi {
 	public void backwardStart(){
 		// methodes in PiState kunnen nog veranderen.
 		
-		//myLeftMotor.setOn(richting 2)
-		//myRightMotor.setOn(richting 2)
+		myLeftMotor.triggerBackwardOn();
+		myRightMotor.triggerBackwardOn();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
@@ -87,29 +99,27 @@ public class Pi {
 	public void backwardStop() {
 		// methodes in PiState kunnen nog verandern.
 		
-		//myLeftMotor.setOff
-		//myRightMotor.setOff
+		myLeftMotor.triggerBackwardOff();
+		myRightMotor.triggerBackwardOff();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
 	
 	public void backward(int time) {
-		//double currentTime = System.currentTimeMillis();
 		backwardStart();
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 		}
-		//System.out.println(System.currentTimeMillis() - currentTime);
 		backwardStop();
 	}
 	
 	public void turnLeftStart(){
 		// methodes in PiState kunnen nog veranderen.
 		
-		//myLeftMotor.setOn(richting 2)
-		//myRightMotor.setOn(richting 1)
+		myLeftMotor.triggerBackwardOn();
+		myRightMotor.triggerForwardOn();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
@@ -117,29 +127,27 @@ public class Pi {
 	public void turnLeftStop() {
 		// methodes in PiState kunnen nog verandern.
 		
-		//myLeftMotor.setOff
-		//myRightMotor.setOff
+		myLeftMotor.triggerBackwardOff();
+		myRightMotor.triggerForwardOff();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
 	
 	public void turnLeft(int time) {
-		//double currentTime = System.currentTimeMillis();
 		turnLeftStart();
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 		}
-		//System.out.println(System.currentTimeMillis() - currentTime);
 		turnLeftStop();
 	}
 	
 	public void turnRightStart(){
 		// methodes in PiState kunnen nog veranderen.
 		
-		//myLeftMotor.setOn(richting 1)
-		//myRightMotor.setOn(richting 2)
+		myLeftMotor.triggerForwardOn();
+		myRightMotor.triggerBackwardOn();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
@@ -147,28 +155,28 @@ public class Pi {
 	public void turnRightStop() {
 		// methodes in PiState kunnen nog verandern.
 		
-		//myLeftMotor.setOff
-		//myRightMotor.setOff
+		myLeftMotor.triggerForwardOff();
+		myRightMotor.triggerBackwardOff();
 		myPiState.toggleStateLeftMotor();
 		myPiState.toggleStateRightMotor();
 	}
 	
 	public void turnRight(int time) {
-		//double currentTime = System.currentTimeMillis();
 		turnLeftStart();
 		try {
 			Thread.sleep(1500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 		}
-		//System.out.println(System.currentTimeMillis() - currentTime);
 		turnRightStop();
 	}
 	
+	/**
 	public void climbStart(){
 		// methodes in PiState kunnen nog veranderen.
 		
-		//myHeightMotor -> harder
+		myHeightMotor.setPower(1024);
+		myHeightMotor.triggerForwardOn();
 		myPiState.toggleBottomMotorState();
 	}
 	
@@ -192,6 +200,7 @@ public class Pi {
 		myHeightManager.setTargetHeight(myDistance.getDistance());
 		myPiState.toggleBottomMotorState();
 	}
+	*/
 	
 	public void goToHeight(double height) {
 		myHeightManager.setTargetHeight(height);

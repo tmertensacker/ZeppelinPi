@@ -22,41 +22,41 @@ import java.util.Arrays;
  * DistanceMonitor class to monitor distance measured by sensor
  * 
  * OPMERKING!!! AUTHOR ZAL WEL MOGEN AANGEPAST WORDEN NAAR ONZE NAMEN...
- * @author Rutger Claes <rutger.claes@cs.kuleuven.be>
+ * @author Team Wit
  */
 public class DistanceMonitor {
     
-	
-	// OPMERKING!!! GEEN IDEE OF DEZE ALLEMAAL STATIC MOETEN ZIJN OF NIET.....
     private final static float SOUND_SPEED = 340.29f;  // speed of sound in m/s
     private final static int TRIG_DURATION_IN_MICROS = 10; // trigger duration of 10 micro s
-    private final static int WAIT_DURATION_IN_MILLIS = 60; // wait 60 milli s
-	private final static Pin echo = RaspiPin.GPIO_00; // PI4j custom numbering (pin110)
-	private final static Pin trig = RaspiPin.GPIO_07; // PI4J custom numbering (pin7)
+    private final static Pin trig = RaspiPin.GPIO_13; // GPIO 9 /// fysiek: 21
+    private final static Pin echo = RaspiPin.GPIO_11; // GPIO 7 /// fysiek: 26
+
     private final static int TIMEOUT = 2100;
     
     private final static GpioController gpio = GpioFactory.getInstance();
     
     private final GpioPinDigitalInput echoPin = gpio.provisionDigitalInputPin(echo);
     private final GpioPinDigitalOutput trigPin = gpio.provisionDigitalOutputPin(trig);
-	//private final PIState state;
    
-	//VOOR state nog het object vd PIState meegeven???
    public DistanceMonitor() {
 		this.trigPin.low();
-		//this.state = state;
     }
 	
 	/*
-	 * This method returns the median of TODO:///een aantal N, moet getest worden/// measured distances.
+	 * This method returns the median of measured distances.
 	 *
 	 */
-	public float measureDistance() {
+	public float getDistance() {
 		// N is the number of measurements.
-		int N = 10;
+		int N = 30;
 		float[] measurements = new float[N];
 		for(int i = 0; i < N; i++){
-			measurements[i] = getDistance();
+			measurements[i] = measureDistance();
+			try {
+				Thread.sleep(30);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		// Sort the measurements and return the median from the sorted array.
 		Arrays.sort(measurements);
@@ -67,7 +67,6 @@ public class DistanceMonitor {
 		else{
 			dist =(float) measurements[N/2];	
 		}
-		//state.setLatestDistanceMeasured(dist);
 		return dist;
 		
 	}
@@ -77,7 +76,7 @@ public class DistanceMonitor {
      * 
      * @throws TimeoutException if a timeout occurs
      */
-    public float getDistance() {
+    public float measureDistance() {
         try{
 		this.triggerSensor();
         	this.waitForSignal();
@@ -137,27 +136,6 @@ public class DistanceMonitor {
         
         return (long)Math.ceil( ( end - start ) / 1000.0 );  // Return micro seconds
     }
-    
-/*public static void main( String[] args ) {
-        Pin echoPin = RaspiPin.GPIO_00; // PI4J custom numbering (pin 11)
-        Pin trigPin = RaspiPin.GPIO_07; // PI4J custom numbering (pin 7)
-        DistanceMonitor monitor = new DistanceMonitor( echoPin, trigPin );
-        
-        while( true ) {
-            try {
-                System.out.printf( "%1$d,%2$.3f%n", System.currentTimeMillis(), monitor.measureDistance() );
-            }
-            catch( TimeoutException e ) {
-                System.err.println( e );
-            }
-
-            try {
-                Thread.sleep( WAIT_DURATION_IN_MILLIS );
-            } catch (InterruptedException ex) {
-                System.err.println( "Interrupt during trigger" );
-            }
-        }
-    }*/
 
     /**
      * Exception thrown when timeout occurs
@@ -175,5 +153,19 @@ public class DistanceMonitor {
             return this.reason;
         }
     }
+   
+//   public static void main( String[] args ) {
+//	   try{        
+//		   DistanceMonitor monitor = new DistanceMonitor();
+//		   System.out.println(monitor.measureDistance());
+//		   for(int i =0; i < 10; i++){
+//			   System.out.println(monitor.measureDistance());
+//			   Thread.sleep(30);
+//		   }
+//	   }
+//	   catch(InterruptedException ex){
+//		   Thread.currentThread().interrupt();
+//	   }
+//   }
     
 }

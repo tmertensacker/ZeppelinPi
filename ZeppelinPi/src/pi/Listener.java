@@ -8,13 +8,13 @@ public class Listener extends Thread
 	private ServerSocket serverSocket;
 	private Pi pi;
 	
-	public Listener(int port) throws IOException
+	public Listener(int port, Pi pi) throws IOException
 	{
-		this.pi = new Pi();
+		this.pi = pi;
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
 	}
-	public void run()
+	public synchronized void run()
 	{
 		while(true){
 			try{
