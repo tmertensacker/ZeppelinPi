@@ -205,4 +205,8 @@ public class Pi {
 	public void goToHeight(double newTargetHeight) {
 		myHeightManager.setTargetHeight(newTargetHeight);
 	}
+	
+	public String getPiState(){
+		return myPiState.toString();
+	}
 }
