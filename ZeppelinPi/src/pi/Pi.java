@@ -168,6 +168,7 @@ public class Pi {
 	}
 	
 	public void climbStart(){
+		myHeightManager.setRunning(false);
 		myBottomMotor.setPower(1024);
 		myPiState.setBottomMotorPower(1024);
 		myBottomMotor.triggerForwardOn();
@@ -180,10 +181,12 @@ public class Pi {
 		myBottomMotor.triggerForwardOff();
 		myPiState.setBottomMotorState(0);
 		myHeightManager.setTargetHeight(myDistance.getDistance());
+		myHeightManager.setRunning(true);
 		
 	}
 	
 	public void descendStart(){
+		myHeightManager.setRunning(false);
 		myBottomMotor.setPower(1024);
 		myPiState.setBottomMotorPower(1024);
 		myBottomMotor.triggerBackwardOn();
@@ -196,6 +199,7 @@ public class Pi {
 		myBottomMotor.triggerBackwardOff();
 		myPiState.setBottomMotorState(0);
 		myHeightManager.setTargetHeight(myDistance.getDistance());
+		myHeightManager.setRunning(true);
 	}
 	
 	public void goToHeight(double newTargetHeight) {

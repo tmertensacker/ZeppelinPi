@@ -5,7 +5,7 @@ public class HeightManager implements Runnable {
 	
 	private double targetHeight;
 	private DistanceMonitor myDistance;
-	private boolean stop = false;
+	private boolean running = true;
 	private double balancePower;
 	private double lastHeight;
 	private double currentPower;
@@ -31,7 +31,7 @@ public class HeightManager implements Runnable {
 	
 	
 	public void terminate() {
-		stop = true;
+		running = false;
 	}
 	
 	
@@ -45,9 +45,9 @@ public class HeightManager implements Runnable {
 	//de parameters hier gebruikt kunnen naar believe aangepast worden, maar principieel zou dit wel moeten werken..?
 	
 	public synchronized void run(){
-		while(! stop){
+		while(running){
 			// als targetHeight ongeveer bereikt is (2.5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
-			while (Math.abs(targetHeight-myDistance.getDistance()) < 2.5 && !stop) 
+			while (Math.abs(targetHeight-myDistance.getDistance()) < 2.5 && running) 
 				{
 				// schakel gemeten balanceVoltage in
 				applyBalance();
@@ -146,5 +146,9 @@ public class HeightManager implements Runnable {
 	
 	public double getBalance() {
 		return balancePower;
+	}
+	
+	public void setRunning(boolean bool){
+		running = bool;		
 	}
 }
