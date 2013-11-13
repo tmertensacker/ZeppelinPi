@@ -53,7 +53,7 @@ public class HeightManager implements Runnable {
 		while(! stop){
 			//System.out.println("start run in HM");
 			// als targetHeight ongeveer bereikt is (5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
-			while (Math.abs(targetHeight-myDistance.getDistance()) < 5) 
+			while (Math.abs(targetHeight-myDistance.getDistance()) < 5 && !stop) 
 				{
 				System.out.println("in lus grootteverschil < 5, grootteverschil = " + (targetHeight-myDistance.getDistance()));
 				// schakel gemeten balanceVoltage in
@@ -68,7 +68,7 @@ public class HeightManager implements Runnable {
 				// vergelijk laatse hoogte met nieuwe hoogte, indien te groot (voorlopig groter als 2cm) balanceVoltage aanpassen.
 				// nauwkeurigheid distancemeter nog testen.	
 				// Hoe juist aanpassen, voorlopig heel eenvoudig, experimenteel voorlopige factor 200 bepalen!				
-				while (Math.abs(myDistance.getDistance() - lastHeight) > 2) {		
+				if (Math.abs(myDistance.getDistance() - lastHeight) > 2) {		
 					double currentHeight = myDistance.getDistance();
 					//
 					setBalancePower(currentPower + maxPower*(currentHeight-lastHeight)/200);
@@ -91,7 +91,7 @@ public class HeightManager implements Runnable {
 			if (newDistance < targetHeight) {
 				//System.out.println("target groter dan huidig");
 				System.out.println("huidig = " + myDistance.getDistance());
-				if (Math.abs(newDistance - targetHeight) > 40) {
+				if (Math.abs(newDistance - targetHeight) > 30) {
 					currentPower = maxPower;
 				}
 				
@@ -104,7 +104,7 @@ public class HeightManager implements Runnable {
 			// de zep moet dalen, omgekeerd als hierboven.
 			else {
 				System.out.println("huidig = " + myDistance.getDistance());
-				if (Math.abs(newDistance - targetHeight) > 40) {
+				if (Math.abs(newDistance - targetHeight) > 30) {
 					currentPower = minPower;
 				}
 				
