@@ -21,12 +21,12 @@ public class Pi {
 	//Motor2
 	Pin forw2 = RaspiPin.GPIO_04;
 	Pin back2 = RaspiPin.GPIO_00;
-	//Distance Monitor pinnen:
+	//Distance Monitor pins:
 	//Pin 1 = RaspiPin.GPIO_13;
 	//Pin 2 = RaspiPin.GPIO_11;
 	//Motor4
-	Pin forw4 = RaspiPin.GPIO_12;
-	Pin back4 = RaspiPin.GPIO_14;
+	Pin forw4 = RaspiPin.GPIO_14;
+	Pin back4 = RaspiPin.GPIO_12;
 	
 	public Pi() {
 		myDistance = new DistanceMonitor();
