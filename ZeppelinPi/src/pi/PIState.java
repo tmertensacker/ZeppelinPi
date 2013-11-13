@@ -10,79 +10,67 @@ package pi;
 public class PIState{
 
 	/**
-	* Variable to keep track of the state of the bottom motor. Either 0 , off, or 1, on. 
-	* OPMERKING nog aanpassen want deze motor kan een variabele waarde (voltage) gegeven worden.
+	* Variable to keep track of the state of the bottom motor. Either 0 , off, 1, on/forward or 2 on/backward. 
 	*/
 	private int bottomMotorState = 0;
 	
 	/**
-	* Variable to keep track of the state of the left motor. Either 0, off, or 1, on.
+	* Variable to keep track of the power of the bottom motor. Value between 0 and 1024.
+	*/
+	private int bottomMotorPower = 0;
+	
+	/**
+	* Variable to keep track of the state of the left motor. Either 0 , off, 1, on/forward or 2 on/backward. 
 	*/
 	private int leftMotorState = 0;
 	
 	/**
-	* Variable to keep track of the state of the right motor. Either 0, off, or 1, on.
+	* Variable to keep track of the state of the right motor. Either 0 , off, 1, on/forward or 2 on/backward. 
 	*/
 	private int rightMotorState = 0;
 	
 	/**
-	* Variable to keep track of the latest distance measured by the discante monitor.
+	* Variable to keep track of the current height of the zeppelin.
 	*/
-	private float latestDistanceMeasured = 0;
+	private float currentHeight = 0;
 	
 	public PIState(){
 		
 	}
 	
-	//TODO: tostring voor return-value
-	
 	/**
-	* Toggles the state of the bottom motor.
-	* If the current state is 0, the state is set to 1.
-	* If the current state is 1, the state is set to 0.
+	* Sets the state for the bottom motor to the given new state.
 	*/
-	public void toggleBottomMotorState(){
-		if(bottomMotorState == 0){
-			bottomMotorState = 1;
-		}
-		else{
-			bottomMotorState = 0;
-		}
+	public void setBottomMotorState(int newState){
+		bottomMotorState = newState;
 	}
 	
 	/**
-	* Toggles the state of the left motor.
-	* If the current state is 0, the state is set to 1.
-	* If the current state is 1, the state is set to 0.
-	*/
-	public void toggleStateLeftMotor(){
-		if(leftMotorState == 0){
-			leftMotorState = 1;
-		}
-		else{
-			leftMotorState = 0;
-		}
+	 * Sets the power of the bottom motor to the given new power.
+	 */
+	public void setBottomMotorPower(int bottomMotorPower) {
+		this.bottomMotorPower = bottomMotorPower;
 	}
 	
 	/**
-	* Toggles the state of the right motor.
-	* If the current state is 0, the state is set to 1.
-	* If the current state is 1, the state is set to 0.
+	* Sets the state for the left motor to the given new state.
 	*/
-	public void toggleStateRightMotor(){
-		if(rightMotorState == 0){
-			rightMotorState = 1;
-		}
-		else{
-			rightMotorState = 0;
-		}
+	public void setLeftMotorState(int newState){
+		leftMotorState = newState;
+	}
+	
+	/**
+	* Sets the state for the right motor to the given new state.
+	*/
+	public void setRightMotorState(int newState){
+		rightMotorState = newState;
 	}
 	
 	/**
 	* Sets the latest distance measured to the given distance.
 	*/
-	public void setLatestDistanceMeasured(float newDist){
-		latestDistanceMeasured = newDist;
+	public void setCurrentHeight(float newCurrentHeight){
+		currentHeight = newCurrentHeight;
 	}
 	
 	/**
@@ -92,6 +80,20 @@ public class PIState{
 		return bottomMotorState;
 	}
 
+	/**
+	 * Returns the power of the bottom motor.
+	 */
+	public int getBottomMotorPower() {
+		return bottomMotorPower;
+	}
+	
+	/**
+	 * Returns the percentage of power of the bottom motor.
+	 */
+	public int getBottomMotorPowerPercentage(){
+		return bottomMotorPower/1024*100;
+	}
+	
 	/**
 	* Returns the state of the left motor.
 	*/
@@ -109,10 +111,19 @@ public class PIState{
 	/**
 	* Returns the latest distance measured.
 	*/
-	public float getLatestDistanceMeasured() {
-		return latestDistanceMeasured;
+	public float getHeight() {
+		return currentHeight;
 	}
-
 	
-	
-}
+	//TODO: tostring voor return-value
+	/**
+	 * Returns the current state of the PI including the state of the right, left and bottom motor and the latest distance measured.
+	 */
+	public String toString(){
+		return(getBottomMotorState() +" "+
+				getBottomMotorPowerPercentage() +" "+
+				getRightMotorState() +" "+
+				getLeftMotorState() +" "+
+				getHeight());
+	}
+}	

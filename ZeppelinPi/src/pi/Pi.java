@@ -42,7 +42,7 @@ public class Pi {
 		int port = Integer.parseInt(args[0]);
 		Pi pi = new Pi();
 		try{
-	 		Thread t = new Listener(port);
+	 		Thread t = new Listener(port, pi);
 			Thread hm = new Thread(pi.getHeightManager());
 	 		t.start();
 			hm.start();
