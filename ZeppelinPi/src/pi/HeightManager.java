@@ -1,7 +1,5 @@
 package pi;
 
-import onPi.Distance;
-
 
 public class HeightManager implements Runnable {
 	
@@ -13,14 +11,12 @@ public class HeightManager implements Runnable {
 	private double currentPower;
 	private double maxPower;
 	private double minPower;
-	private boolean hasBalance;
 	private MotorPwm heightmotor;
 	
 	public HeightManager(MotorPwm heightMotor){
 		myDistance = new DistanceMonitor();
 		maxPower = 1024;
-		minPower = 500;
-		hasBalance = false;
+		minPower = 400;
 		balancePower = 800;
 		lastHeight = myDistance.getDistance();
 		targetHeight = 50;
@@ -49,13 +45,10 @@ public class HeightManager implements Runnable {
 	//de parameters hier gebruikt kunnen naar believe aangepast worden, maar principieel zou dit wel moeten werken..?
 	
 	public synchronized void run(){
-		System.out.println("run method in HM");
 		while(! stop){
-			//System.out.println("start run in HM");
-			// als targetHeight ongeveer bereikt is (5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
-			while (Math.abs(targetHeight-myDistance.getDistance()) < 5 && !stop) 
+			// als targetHeight ongeveer bereikt is (2.5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
+			while (Math.abs(targetHeight-myDistance.getDistance()) < 2.5 && !stop) 
 				{
-				System.out.println("in lus grootteverschil < 5, grootteverschil = " + (targetHeight-myDistance.getDistance()));
 				// schakel gemeten balanceVoltage in
 				applyBalance();
 				// initialiseer lastHeight en wacht 1000 ms
@@ -68,20 +61,12 @@ public class HeightManager implements Runnable {
 				// vergelijk laatse hoogte met nieuwe hoogte, indien te groot (voorlopig groter als 2cm) balanceVoltage aanpassen.
 				// nauwkeurigheid distancemeter nog testen.	
 				// Hoe juist aanpassen, voorlopig heel eenvoudig, experimenteel voorlopige factor 200 bepalen!				
-				if (Math.abs(myDistance.getDistance() - lastHeight) > 2) {		
+				if (Math.abs(myDistance.getDistance() - lastHeight) > 1.5) {		
 					double currentHeight = myDistance.getDistance();
 					//
 					setBalancePower(currentPower + maxPower*(currentHeight-lastHeight)/200);
 					applyBalance();
-					lastHeight = currentHeight;
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-					}	
 				}
-				System.out.println(this.currentPower);
-				hasBalance = true;
 				
 			}
 			
@@ -89,30 +74,25 @@ public class HeightManager implements Runnable {
 			double newDistance = myDistance.getDistance();
 			//de zep moet stijgen, afhankelijk van hoe ver verwijderd van targetHoogte, vol vermogen, of uitgemiddeld vermogen.
 			if (newDistance < targetHeight) {
-				//System.out.println("target groter dan huidig");
-				System.out.println("huidig = " + myDistance.getDistance());
 				if (Math.abs(newDistance - targetHeight) > 30) {
 					currentPower = maxPower;
 				}
 				
 				else {
-					currentPower = balancePower + (Math.abs(newDistance - targetHeight) / 40)*(maxPower - balancePower);
+					setCurrentPower(balancePower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - balancePower));
 				}
-				System.out.println(this.getCurrentPower());
 				applyPower();
 			}
 			// de zep moet dalen, omgekeerd als hierboven.
 			else {
-				System.out.println("huidig = " + myDistance.getDistance());
 				if (Math.abs(newDistance - targetHeight) > 30) {
 					currentPower = minPower;
 				}
 				
 				else {
 					
-					currentPower = balancePower - (Math.abs(newDistance - targetHeight) / 30)*(balancePower - minPower);
+					setCurrentPower(balancePower - (Math.abs(newDistance - targetHeight) / 30)*(balancePower - minPower));
 				}
-				System.out.println(this.getCurrentPower());
 				applyPower();
 			}
 		}
@@ -134,6 +114,20 @@ public class HeightManager implements Runnable {
 		
 		else {
 			balancePower = voltage;
+		}
+	}
+	
+	private void setCurrentPower(double voltage) {
+		if (voltage > maxPower) {
+			currentPower = maxPower;
+		}
+		
+		else if (voltage < minPower) {
+			currentPower = minPower;
+		}
+		
+		else {
+			currentPower = voltage;
 		}
 	}
 	
