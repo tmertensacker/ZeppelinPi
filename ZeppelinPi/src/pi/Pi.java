@@ -197,4 +197,8 @@ public class Pi {
 		myPiState.setBottomMotorState(0);
 		myHeightManager.setTargetHeight(myDistance.getDistance());
 	}
+	
+	public void goToHeight(double newTargetHeight) {
+		myHeightManager.setTargetHeight(newTargetHeight);
+	}
 }
