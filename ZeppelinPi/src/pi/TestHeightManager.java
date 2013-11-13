@@ -11,6 +11,8 @@ public class TestHeightManager {
 			HeightManager myHM = new HeightManager(myMotor);
 			Thread tmyHM = new Thread(myHM);
 			tmyHM.start();
+			Thread.sleep(20000);
+			myHM.terminate();
 		}
 	}
 

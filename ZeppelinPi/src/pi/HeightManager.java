@@ -32,6 +32,8 @@ public class HeightManager implements Runnable {
 	
 	public void terminate() {
 		running = false;
+		currentPower = 0;
+		applyPower();
 	}
 	
 	
