@@ -11,24 +11,24 @@ public class MotorFixed {
 	private final GpioPinDigitalOutput trigPinForward;
 	private final GpioPinDigitalOutput trigPinBackward;
 	
-	/*public static void main( String[] args ) {
+	public static void main( String[] args ) {
 		//Motor1
-	Pin forw = RaspiPin.GPIO_05;
-	Pin back = RaspiPin.GPIO_07;
-	//Motor2
-	//Pin forw = RaspiPin.GPIO_04;
-	//Pin back = RaspiPin.GPIO_00;
-	//Motor3
-	//Pin forw = RaspiPin.GPIO_13;
-	//Pin back = RaspiPin.GPIO_11;
-	//Motor4
-	//Pin forw = RaspiPin.GPIO_12;
-	//Pin back = RaspiPin.GPIO_14;
+		Pin forw = RaspiPin.GPIO_05;
+		Pin back = RaspiPin.GPIO_07;
+		//Motor2
+		//Pin forw = RaspiPin.GPIO_04;
+		//Pin back = RaspiPin.GPIO_00;
+		//Motor3
+		//Pin forw = RaspiPin.GPIO_13;
+		//Pin back = RaspiPin.GPIO_11;
+		//Motor4
+		//Pin forw = RaspiPin.GPIO_12;
+		//Pin back = RaspiPin.GPIO_14;
 		try{
-		System.out.println("Hello");
-		MotorFixed fixedMotor = new MotorFixed(forw, back);
-		fixedMotor.triggerForwardOn();
-		System.out.println("Forward spin on");
+			System.out.println("Hello");
+			MotorFixed fixedMotor = new MotorFixed(forw, back);
+			fixedMotor.triggerForwardOn();
+			System.out.println("Forward spin on");
 		    Thread.sleep(3000);
 		    fixedMotor.triggerForwardOff();
 		    System.out.println("Forward spin off");
@@ -43,7 +43,7 @@ public class MotorFixed {
 			Thread.currentThread().interrupt();
 		}
 		    
-	}*/
+	}
 	
 	
 	public MotorFixed(Pin trigPinForward, Pin trigPinBackward){

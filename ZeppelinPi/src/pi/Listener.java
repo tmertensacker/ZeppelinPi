@@ -36,16 +36,31 @@ public class Listener extends Thread
 					copy(inFile, out);
 					inFile.close();
 				}
-				else if(inMsg.equals("turn right start"))
+				else if(inMsg.equals("turnrightstart"))
 					pi.turnRightStart();
-				else if(inMsg.equals("turn right stop"))
+				else if(inMsg.equals("turnrightstop"))
 					pi.turnRightStop();
-				else if(inMsg.contains("turnright")){
+				else if(inMsg.equals("turnleftstart"))
+					pi.turnLeftStart();
+				else if(inMsg.equals("turnleftstop"))
+					pi.turnLeftStop();
+				else if(inMsg.contains("stayatheight")){
+					String[] split = inMsg.split("\\s+");
+					if(split.length == 2 ){
+						System.out.println("stayatheight "+split[1]);
+						double height = Double.parseDouble(split[1]);
+						pi.goToHeight(height);
+					}
+					else{
+						//onbekend commando
+					}
+				}
+				/*else if(inMsg.contains("turnright")){
 					String[] split = inMsg.split("\\s+");
 					if(split.length > 2 )
 						System.out.println(split[2]); //TODO: wordt 1.
 					pi.turnRight(Integer.parseInt(split[2]));   
-				}
+				}*/
 				else{
 					//out.writeUTF("error: unknown command");				
 				}
