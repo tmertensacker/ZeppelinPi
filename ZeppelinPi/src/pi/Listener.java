@@ -1,6 +1,8 @@
 package pi;
 
 import java.net.*;
+import java.util.Arrays;
+import java.util.List;
 import java.io.*;
 
 public class Listener extends Thread
@@ -25,17 +27,48 @@ public class Listener extends Thread
 				String inMsg = in.readUTF();
 				OutputStream out = server.getOutputStream();
 				DataOutputStream outData = new DataOutputStream(out);
-				//TODO: alle commando's uitwerken!
-				if(inMsg.equals("get height")){ //TODO: commando's aaneen schrijven
+				if(inMsg.equals("getheight")){
 					float height = pi.getHeight();
 					outData.writeUTF(Float.toString(height));
 				}
-				else if(inMsg.equals("get picture")){
+				else if(inMsg.equals("takepicture")){
 					pi.takePicture();
 					InputStream inFile = new FileInputStream("picture.jpg");                        
 					copy(inFile, out);
 					inFile.close();
 				}
+				else if(inMsg.equals("getpistate")) {
+					String result = pi.getPiState();
+					outData.writeUTF(result);
+				}
+				else if (inMsg.contains("forward ")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.forward(Integer.parseInt(strings.get(1)));
+				}
+				else if (inMsg.contains("backward ")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.backward(Integer.parseInt(strings.get(1)));
+				}
+				else if (inMsg.contains("climb ") || inMsg.contains("descend ")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.goToHeight(Integer.parseInt(strings.get(1)));
+				}
+				else if(inMsg.equals("forwardstart"))
+					pi.forwardStart();
+				else if(inMsg.equals("forwardstop"))
+					pi.forwardStop();
+				else if(inMsg.equals("backwardstart"))
+					pi.backwardStart();
+				else if(inMsg.equals("backwardstop"))
+					pi.backwardStop();
+				else if(inMsg.equals("climbstart"))
+					pi.climbStart();
+				else if(inMsg.equals("climbstop"))
+					pi.climbStop();
+				else if(inMsg.equals("descendstart"))
+					pi.descendStart();
+				else if(inMsg.equals("descendstop"))
+					pi.descendStop();
 				else if(inMsg.equals("turnrightstart"))
 					pi.turnRightStart();
 				else if(inMsg.equals("turnrightstop"))
