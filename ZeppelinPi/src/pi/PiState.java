@@ -7,7 +7,7 @@ package pi;
 *	- Last measured distance (blabedkbalbalbalbalbalbalblblablablablablabla)
 *
 */
-public class PIState{
+public class PiState{
 
 	/**
 	* Variable to keep track of the state of the bottom motor. Either 0 , off, 1, on/forward or 2 on/backward. 
@@ -34,34 +34,37 @@ public class PIState{
 	*/
 	private float currentHeight = 0;
 	
-	public PIState(){
+	public PiState(){
 		
 	}
 	
 	/**
-	* Sets the state for the bottom motor to the given new state.
+	* Sets the state for the bottom motor to the given new state. Either 0 , off, 1, on/forward or 2 on/backward. 
 	*/
 	public void setBottomMotorState(int newState){
 		bottomMotorState = newState;
 	}
 	
 	/**
-	 * Sets the power of the bottom motor to the given new power.
+	 * Sets the power of the bottom motor to the given new power. A value >= 0 and <= 1024.
 	 */
 	public void setBottomMotorPower(int bottomMotorPower) {
 		this.bottomMotorPower = bottomMotorPower;
 	}
 	
 	/**
-	* Sets the state for the left motor to the given new state.
+	* Sets the state for the left motor to the given new state. Either 0 , off, 1, on/forward or 2 on/backward.
 	*/
 	public void setLeftMotorState(int newState){
 		leftMotorState = newState;
 	}
 	
+	public void setRightMotorState(int newState) {
+		rightMotorState = newState;
+	}
+	
 	/**
-	* Sets the state for the right motor to the given new state.
-	*/
+	* Sets the state for the right motor to the given new state. Either 0 , off, 1, on/forward or 2 on/backward.
 	public void setRightMotorState(int newState){
 		rightMotorState = newState;
 	}
@@ -74,14 +77,14 @@ public class PIState{
 	}
 	
 	/**
-	* Returns the state of the bottom motor.
+	* Returns the state of the bottom motor. Either 0 , off, 1, on/forward or 2 on/backward.
 	*/
 	public int getBottomMotorState() {
 		return bottomMotorState;
 	}
 
 	/**
-	 * Returns the power of the bottom motor.
+	 * Returns the power of the bottom motor. A value >= 0 and <= 1024.
 	 */
 	public int getBottomMotorPower() {
 		return bottomMotorPower;
@@ -95,14 +98,14 @@ public class PIState{
 	}
 	
 	/**
-	* Returns the state of the left motor.
+	* Returns the state of the left motor. Either 0 , off, 1, on/forward or 2 on/backward.
 	*/
 	public int getLeftMotorState() {
 		return leftMotorState;
 	}
 
 	/**
-	* Returns the state of the right motor.
+	* Returns the state of the right motor. Either 0 , off, 1, on/forward or 2 on/backward.
 	*/
 	public int getRightMotorState() {
 		return rightMotorState;
@@ -117,7 +120,7 @@ public class PIState{
 	
 	//TODO: tostring voor return-value
 	/**
-	 * Returns the current state of the PI including the state of the right, left and bottom motor and the latest distance measured.
+	 * Returns the current state of the PI: "bottomMotorState+' '+bottomMotorPowerPercentage+' '+rightMotorState+' '+leftMotorState+' '+height".
 	 */
 	public String toString(){
 		return(getBottomMotorState() +" "+
@@ -126,4 +129,5 @@ public class PIState{
 				getLeftMotorState() +" "+
 				getHeight());
 	}
+	
 }	

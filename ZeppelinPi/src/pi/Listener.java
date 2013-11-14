@@ -88,12 +88,6 @@ public class Listener extends Thread
 						//onbekend commando
 					}
 				}
-				/*else if(inMsg.contains("turnright")){
-					String[] split = inMsg.split("\\s+");
-					if(split.length > 2 )
-						System.out.println(split[2]); //TODO: wordt 1.
-					pi.turnRight(Integer.parseInt(split[2]));   
-				}*/
 				else{
 					//out.writeUTF("error: unknown command");				
 				}

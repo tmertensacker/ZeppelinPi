@@ -13,7 +13,7 @@ public class Pi {
 	MotorFixed myLeftMotor;
 	MotorFixed myRightMotor;
 	MotorPwm myBottomMotor;
-	PIState myPiState;
+	PiState myPiState;
 	
 	//Motor1
 	Pin forw1 = RaspiPin.GPIO_05;
@@ -29,11 +29,13 @@ public class Pi {
 	Pin back4 = RaspiPin.GPIO_12;
 	
 	public Pi() {
+		myPiState = new PiState();
 		myDistance = new DistanceMonitor();
 		myCamera = new Camera();
 		myBottomMotor = new MotorPwm(forw1, back1);
-		myLeftMotor = new MotorFixed(forw2, back2);
-		myRightMotor = new MotorFixed(forw4, back4);
+		myPiState.setBottomMotorState(1);
+		myLeftMotor = new MotorFixed(forw4, back4);
+		myRightMotor = new MotorFixed(forw2, back2);
 		myHeightManager = new HeightManager(myBottomMotor);
 	}
 	
