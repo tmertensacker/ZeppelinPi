@@ -47,7 +47,7 @@ public class MotorPwm {
 		pwmPin.setPwm(0);	
 		this.trigPinForward = gpio.provisionDigitalOutputPin(trigPinForward);
 		this.trigPinBackward = gpio.provisionDigitalOutputPin(trigPinBackward);
-		this.trigPinForward.low();
+		this.trigPinForward.high();
 		this.trigPinBackward.low();
 		
 	}
