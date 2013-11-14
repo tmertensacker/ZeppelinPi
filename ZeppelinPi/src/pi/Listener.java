@@ -40,10 +40,14 @@ public class Listener extends Thread
 					pi.turnRightStart();
 				else if(inMsg.equals("turnrightstop"))
 					pi.turnRightStop();
-				else if(inMsg.equals("turnleftstart"))
+				else if(inMsg.equals("turnleftstart")){
 					pi.turnLeftStart();
-				else if(inMsg.equals("turnleftstop"))
+					System.out.println("turnleft start received");
+				}
+				else if(inMsg.equals("turnleftstop")){
 					pi.turnLeftStop();
+					System.out.println("turnleft start received");
+				}
 				else if(inMsg.contains("stayatheight")){
 					String[] split = inMsg.split("\\s+");
 					if(split.length == 2 ){
