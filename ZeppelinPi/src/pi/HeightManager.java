@@ -18,7 +18,7 @@ public class HeightManager implements Runnable {
 		myDistance = new DistanceMonitor();
 		maxPower = 1024;
 		minPower = 400;
-		balancePower = 800;
+		balancePower = 0;
 		//lastHeight = myDistance.getDistance();
 		targetHeight = 50;
 		this.heightmotor = heightMotor;
