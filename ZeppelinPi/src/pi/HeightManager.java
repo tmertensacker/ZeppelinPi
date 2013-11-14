@@ -1,4 +1,7 @@
-package pi;
+package onPi;
+
+import onPi.DistanceMonitor;
+import onPi.MotorPwm;
 
 
 public class HeightManager implements Runnable {
