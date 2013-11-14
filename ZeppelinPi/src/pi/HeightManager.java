@@ -7,20 +7,22 @@ public class HeightManager implements Runnable {
 	private DistanceMonitor myDistance;
 	private boolean running = true;
 	private double balancePower;
-	private double lastHeight;
+	//private double lastHeight;
 	private double currentPower;
 	private double maxPower;
 	private double minPower;
 	private MotorPwm heightmotor;
+	private int direction; // 0 = uit; 1 = forward; 2 = backward
 	
 	public HeightManager(MotorPwm heightMotor){
 		myDistance = new DistanceMonitor();
 		maxPower = 1024;
 		minPower = 400;
 		balancePower = 800;
-		lastHeight = myDistance.getDistance();
+		//lastHeight = myDistance.getDistance();
 		targetHeight = 50;
 		this.heightmotor = heightMotor;
+		direction = 0;
 		
 		
 	}
@@ -30,8 +32,13 @@ public class HeightManager implements Runnable {
 	
 	
 	
-	public void terminate() {
+	public void terminate(){
 		running = false;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		currentPower = 0;
 		applyPower();
 	}
@@ -46,7 +53,7 @@ public class HeightManager implements Runnable {
 	//afhankelijk van de preciese afwijking tussen 0 en 40cm.
 	//de parameters hier gebruikt kunnen naar believe aangepast worden, maar principieel zou dit wel moeten werken..?
 	
-	public synchronized void run(){
+	/*public synchronized void run(){
 		while(running){
 			// als targetHeight ongeveer bereikt is (2.5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
 			while (Math.abs(targetHeight-myDistance.getDistance()) < 2.5 && running) 
@@ -99,13 +106,60 @@ public class HeightManager implements Runnable {
 			}
 		}
 		
-	}
+	}*/
 	
+	public synchronized void run() {
+		while(running){
+			// als targetHeight ongeveer bereikt is (2.5 cm afwijking), evenwichtstoestand inschakelen. eventueel balanceVoltage aanpassen.
+			while (Math.abs(targetHeight-myDistance.getDistance()) < 3 && running) 
+				{
+				// schakel gemeten balanceVoltage in
+				applyBalance();				
+			}
+			//uit de evenwichtslus indien groot stuk stijgen/dalen.
+			double newDistance = myDistance.getDistance();
+			//de zep moet stijgen, afhankelijk van hoe ver verwijderd van targetHoogte, vol vermogen, of uitgemiddeld vermogen.
+			if (newDistance < targetHeight) {
+				if (Math.abs(newDistance - targetHeight) > 30) {
+					if (!(direction == 1)) {
+						heightmotor.triggerBackwardOff();
+						heightmotor.triggerForwardOn();	
+						direction = 1;
+					}
+					
+					currentPower = maxPower;
+				}
+				
+				else {
+					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - minPower));
+				}
+				applyPower();
+			}
+			// de zep moet dalen, omgekeerd als hierboven.
+			else {
+				if (!(direction == 2)) {
+					heightmotor.triggerForwardOff();
+					heightmotor.triggerBackwardOn();
+					direction = 2;
+				}
+				
+				if (Math.abs(newDistance - targetHeight) > 30) {
+					currentPower = maxPower;
+				}
+				
+				else {
+					
+					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - minPower));
+				}
+				applyPower();
+			}
+		}
+	}
 	public void setTargetHeight(double newTargetHeight){
 		targetHeight = newTargetHeight;
 	}
 	
-	private void setBalancePower(double voltage) {
+	/*private void setBalancePower(double voltage) {
 		if (voltage > maxPower) {
 			balancePower = maxPower;
 		}
@@ -117,7 +171,7 @@ public class HeightManager implements Runnable {
 		else {
 			balancePower = voltage;
 		}
-	}
+	}*/
 	
 	private void setCurrentPower(double voltage) {
 		if (voltage > maxPower) {
