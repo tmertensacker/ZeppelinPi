@@ -53,6 +53,7 @@ public class Listener extends Thread
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(Integer.parseInt(strings.get(1)));
 				}
+				//TODO: links en rechts met graden
 				else if(inMsg.equals("forwardstart"))
 					pi.forwardStart();
 				else if(inMsg.equals("forwardstop"))
