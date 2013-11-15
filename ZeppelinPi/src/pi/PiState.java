@@ -7,7 +7,7 @@ package pi;
 *	- Last measured distance (blabedkbalbalbalbalbalbalblblablablablablabla)
 *
 */
-public class PIState{
+public class PiState{
 
 	/**
 	* Variable to keep track of the state of the bottom motor. Either 0 , off, 1, on/forward or 2 on/backward. 
@@ -34,7 +34,7 @@ public class PIState{
 	*/
 	private float currentHeight = 0;
 	
-	public PIState(){
+	public PiState(){
 		
 	}
 	
@@ -57,6 +57,10 @@ public class PIState{
 	*/
 	public void setLeftMotorState(int newState){
 		leftMotorState = newState;
+	}
+	
+	public void setRightMotorState(int newState) {
+		rightMotorState = newState;
 	}
 	
 	/**
@@ -125,4 +129,5 @@ public class PIState{
 				getLeftMotorState() +" "+
 				getHeight());
 	}
+	
 }	

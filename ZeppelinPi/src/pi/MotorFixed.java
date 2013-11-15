@@ -11,7 +11,7 @@ public class MotorFixed {
 	private final GpioPinDigitalOutput trigPinForward;
 	private final GpioPinDigitalOutput trigPinBackward;
 	
-	/****public static void main( String[] args ) {
+	/*public static void main( String[] args ) {
 		//Motor1
 		Pin forw = RaspiPin.GPIO_05;
 		Pin back = RaspiPin.GPIO_07;
