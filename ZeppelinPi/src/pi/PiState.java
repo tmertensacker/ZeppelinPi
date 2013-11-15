@@ -50,7 +50,7 @@ public class PiState{
 	 */
 	public void setBottomMotorPower(int bottomMotorPower) {
 		this.bottomMotorPower = bottomMotorPower;
-	}
+	} 
 	
 	/**
 	* Sets the state for the left motor to the given new state. Either 0 , off, 1, on/forward or 2 on/backward.
