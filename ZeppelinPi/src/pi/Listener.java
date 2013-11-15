@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.io.*;
 
-public class Listener extends Thread
+public class Listener implements Runnable
 {
 	private ServerSocket serverSocket;
 	private Pi pi;
@@ -38,8 +38,8 @@ public class Listener extends Thread
 					inFile.close();
 				}
 				else if(inMsg.equals("getpistate")) {
-					//String result = pi.getPiState();
-					String result = "dit is de pi state";
+					String result = pi.getPiState();
+					//String result = "0 0 0 0 0";
 					outData.writeUTF(result);
 				}
 				else if (inMsg.contains("forward ")) {

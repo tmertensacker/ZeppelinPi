@@ -10,7 +10,9 @@ public class MotorFixed {
 	// twee pinnen: 1 om voorwaarts te draaien, 1 om achterwaarts te draaien
 	private final GpioPinDigitalOutput trigPinForward;
 	private final GpioPinDigitalOutput trigPinBackward;
-	
+	private boolean forwardOn = false;
+	private boolean backwardOn = false;
+
 	/*public static void main( String[] args ) {
 		//Motor1
 		Pin forw = RaspiPin.GPIO_05;
@@ -54,18 +56,30 @@ public class MotorFixed {
 	}		
 	
 	public void triggerForwardOn(){
+		if(backwardOn){
+			trigPinBackward.low();
+			backwardOn = false;
+		}
 		trigPinForward.high();
+                forwardOn = true;
 	}
 	
 	public void triggerForwardOff(){
 		trigPinForward.low();
+		forwardOn = false;
 	}
 
 	public void triggerBackwardOn(){
+		if(forwardOn){
+			trigPinForward.low();
+			forwardOn = false;
+		}
 		trigPinBackward.high();
+		backwardOn = true;
 	}
 	
 	public void triggerBackwardOff(){
 		trigPinBackward.low();
+		backwardOn = false;
 	}
 }

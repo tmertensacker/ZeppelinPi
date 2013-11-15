@@ -16,11 +16,11 @@ public class Pi {
 	PiState myPiState;
 	
 	//Motor1
-	Pin forw1 = RaspiPin.GPIO_05;
-	Pin back1 = RaspiPin.GPIO_07;
+	Pin forw1 = RaspiPin.GPIO_07;
+	Pin back1 = RaspiPin.GPIO_05;
 	//Motor2
-	Pin forw2 = RaspiPin.GPIO_04;
-	Pin back2 = RaspiPin.GPIO_00;
+	Pin forw2 = RaspiPin.GPIO_00;
+	Pin back2 = RaspiPin.GPIO_04;
 	//Distance Monitor pins:
 	//Pin 1 = RaspiPin.GPIO_13;
 	//Pin 2 = RaspiPin.GPIO_11;
@@ -35,8 +35,8 @@ public class Pi {
 		myBottomMotor = new MotorPwm(forw1, back1);
 		//myPiState.setBottomMotorState(1);
 		myLeftMotor = new MotorFixed(forw4, back4);
-		myRightMotor = new MotorFixed(back2, forw2);
-		myHeightManager = new HeightManager(myBottomMotor, myDistance);
+		myRightMotor = new MotorFixed(forw2, back2);
+		myHeightManager = new HeightManager(myBottomMotor,myPiState, myDistance);
 	}
 	
 	public static void main(String [] args)
@@ -44,10 +44,10 @@ public class Pi {
 		int port = Integer.parseInt(args[0]);
 		Pi pi = new Pi();
 		try{
-	 		Thread t = new Listener(port, pi);
+	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
 	 		t.start();
-			//hm.start();
+			hm.start();
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -108,7 +108,7 @@ public class Pi {
 		myLeftMotor.triggerBackwardOff();
 		myPiState.setLeftMotorState(0);
 		myRightMotor.triggerBackwardOff();
-		myPiState.setLeftMotorState(0);
+		myPiState.setRightMotorState(0);
 	}
 	
 	public void backward(int time) {
@@ -155,8 +155,8 @@ public class Pi {
 	public void turnRightStop() {
 		myLeftMotor.triggerForwardOff();
 		myPiState.setLeftMotorState(0);
-		myLeftMotor.triggerBackwardOff();
-		myPiState.setLeftMotorState(0);
+		myRightMotor.triggerBackwardOff();
+		myPiState.setRightMotorState(0);
 	}
 	
 	public void turnRight(int time) {
