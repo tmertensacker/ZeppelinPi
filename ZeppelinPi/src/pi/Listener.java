@@ -38,7 +38,8 @@ public class Listener extends Thread
 					inFile.close();
 				}
 				else if(inMsg.equals("getpistate")) {
-					String result = pi.getPiState();
+					//String result = pi.getPiState();
+					String result = "dit is de pi state";
 					outData.writeUTF(result);
 				}
 				else if (inMsg.contains("forward ")) {

@@ -14,8 +14,8 @@ public class HeightManager implements Runnable {
 	private MotorPwm heightmotor;
 	private int direction; // 0 = uit; 1 = forward; 2 = backward
 	
-	public HeightManager(MotorPwm heightMotor){
-		myDistance = new DistanceMonitor();
+	public HeightManager(MotorPwm heightMotor, DistanceMonitor distanceMonitor){
+		myDistance = distanceMonitor;
 		maxPower = 1024;
 		minPower = 400;
 		balancePower = 0;

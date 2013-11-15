@@ -34,9 +34,9 @@ public class Pi {
 		myCamera = new Camera();
 		myBottomMotor = new MotorPwm(forw1, back1);
 		//myPiState.setBottomMotorState(1);
-		myLeftMotor = new MotorFixed(forw2, back2);
-		myRightMotor = new MotorFixed(forw4, back4);
-		myHeightManager = new HeightManager(myBottomMotor);
+		myLeftMotor = new MotorFixed(forw4, back4);
+		myRightMotor = new MotorFixed(back2, forw2);
+		myHeightManager = new HeightManager(myBottomMotor, myDistance);
 	}
 	
 	public static void main(String [] args)
