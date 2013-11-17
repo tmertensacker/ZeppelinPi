@@ -71,7 +71,7 @@ public class HeightManager2 implements Runnable {
 			}
 			else{
 				if(diff < 5){
-					if( vel > 0.1){
+					if( vel > 0.01){
 						if(! (direction == 2)){
 							startDownward();
 						}
@@ -90,7 +90,7 @@ public class HeightManager2 implements Runnable {
 				}
 				else{
 					if(newDistance < targetHeight){
-						if( vel > 0.1 ){
+						if( vel > 0.01 ){
 							if(direction == 1){
 								int newPower = heightmotor.getPower() - 10;
 								if(newPower < minPower){
@@ -118,7 +118,7 @@ public class HeightManager2 implements Runnable {
 						}
 					}
 					else{
-						if( vel < -0.1){
+						if( vel < -0.01){
 							if(direction == 2){
 								int newPower = heightmotor.getPower() - 10;
 								if(newPower < minPower){
