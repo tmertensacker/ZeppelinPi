@@ -56,7 +56,7 @@ public class Pi {
 		}
 	}	
 	
-	public HeightManager getHeightManager(){
+	public HeightManager2 getHeightManager(){
 		return myHeightManager;
 	}
 	

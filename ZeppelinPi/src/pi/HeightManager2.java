@@ -39,7 +39,6 @@ public class HeightManager2 implements Runnable {
 			e.printStackTrace();
 		}
 		currentPower = 0;
-		applyPower();
 	}
 	
 	public synchronized void run() {
