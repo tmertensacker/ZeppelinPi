@@ -73,7 +73,7 @@ public class HeightManager2 implements Runnable {
 				if(diff < 5){
 					if( vel > 0.002){
 						if(direction == 1){ //omhoog
-							int newPower = heightmotor.getPower() - 3;
+							int newPower = heightmotor.getPower() - 1;
 							if(newPower < minPower){
 								startDownward();
 							}
@@ -82,7 +82,7 @@ public class HeightManager2 implements Runnable {
 							}
 						}
 						else{
-							setPower(heightmotor.getPower()+2);
+							setPower(heightmotor.getPower()+1);
 						}
 					}
 					else{
@@ -102,7 +102,7 @@ public class HeightManager2 implements Runnable {
 				}
 				else if(diff < 10 ){
 					if(newDistance < targetHeight && direction == 1){
-						int newPower = heightmotor.getPower() - 5;
+						int newPower = heightmotor.getPower() - 2;
 						if(newPower < minPower){
 							startDownward();
 						}
@@ -111,7 +111,7 @@ public class HeightManager2 implements Runnable {
 						}
 					}
 					else if(newDistance > targetHeight && direction == 2){
-						int newPower = heightmotor.getPower() - 5;
+						int newPower = heightmotor.getPower() - 2;
 						if(newPower < minPower){
 							startUpward();
 						}
