@@ -65,12 +65,12 @@ public class HeightManager2 implements Runnable {
 			
 			double diff = Math.abs(targetHeight-newDistance);
 			
-			if (diff < 5 && Math.abs(vel) < 1) {
+			if (diff < 5 && Math.abs(vel) < 0.1) {
 				// evenwicht
 			}
 			else{
 				if(diff < 5){
-					if( vel > 1){
+					if( vel > 0.1){
 						if(! (direction == 2)){
 							startDownward();
 						}
@@ -89,7 +89,7 @@ public class HeightManager2 implements Runnable {
 				}
 				else{
 					if(newDistance < targetHeight){
-						if( vel > 1 ){
+						if( vel > 0.1 ){
 							if(! (direction == 2))
 								startDownward();
 							else
@@ -109,7 +109,7 @@ public class HeightManager2 implements Runnable {
 						}
 					}
 					else{
-						if( vel < -1){
+						if( vel < -0.1){
 							if(! (direction == 1))
 								startUpward();
 							else
