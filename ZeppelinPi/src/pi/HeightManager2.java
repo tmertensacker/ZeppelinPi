@@ -180,6 +180,8 @@ public class HeightManager2 implements Runnable {
 	}*/
 	
 	private void setPower(double voltage) {
+		if(voltage>maxPower)
+			voltage = maxPower;
 		currentPower = voltage;
 		heightmotor.setPower((int)voltage);
 	}
