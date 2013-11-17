@@ -66,13 +66,13 @@ public class HeightManager2 implements Runnable {
 			System.out.println("new vel: "+vel);
 			double diff = Math.abs(targetHeight-newDistance);
 			
-			if (diff < 5 && Math.abs(vel) < 0.1) {
+			if (diff < 5 && Math.abs(vel) < 0.001) {
 				// evenwicht
 			}
 			else{
 				if(diff < 5){
 					if( vel > 0.001){
-						if(direction == 1){
+						if(direction == 1){ //omhoog
 							int newPower = heightmotor.getPower() - 5;
 							if(newPower < minPower){
 								startDownward();

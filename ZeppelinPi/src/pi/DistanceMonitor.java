@@ -48,7 +48,7 @@ public class DistanceMonitor {
 	 */
 	public float getDistance() {
 		// N is the number of measurements.
-		int N = 30;
+		int N = 10;
 		float[] measurements = new float[N];
 		for(int i = 0; i < N; i++){
 			measurements[i] = measureDistance();
