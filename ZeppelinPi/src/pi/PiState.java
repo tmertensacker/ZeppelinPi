@@ -15,7 +15,7 @@ public class PiState{
 	private int bottomMotorState = 0;
 	
 	/**
-	* Variable to keep track of the power of the bottom motor. Value between 0 and 1024.
+	* Variable to keep track of the power of the bottom motor. Value between 0 and 1024..
 	*/
 	private int bottomMotorPower = 1000;
 	

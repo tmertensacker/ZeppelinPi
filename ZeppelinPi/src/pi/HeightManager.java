@@ -117,7 +117,7 @@ public class HeightManager implements Runnable {
 				applyBalance();				
 			}
 			//uit de evenwichtslus indien groot stuk stijgen/dalen.
-			//de zep moet stijgen, afhankelijk van hoe ver verwijderd van targetHoogte, vol vermogen, of uitgemiddeld vermogen.
+			//de zeppelin moet stijgen, afhankelijk van hoe ver verwijderd van targetHoogte, vol vermogen, of uitgemiddeld vermogen.
 			else {
 			if (newDistance < targetHeight) {
 				if (!(direction == 1)) {

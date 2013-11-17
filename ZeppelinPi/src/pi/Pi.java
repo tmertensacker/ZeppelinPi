@@ -23,7 +23,7 @@ public class Pi {
 	//Motor2
 	Pin forw2 = RaspiPin.GPIO_00;
 	Pin back2 = RaspiPin.GPIO_04;
-	//Distance Monitor pins:
+	//Distance Monitor pins:.
 	//Pin 1 = RaspiPin.GPIO_13;
 	//Pin 2 = RaspiPin.GPIO_11;
 	//Motor4
