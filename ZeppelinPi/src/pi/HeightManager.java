@@ -187,6 +187,7 @@ public class HeightManager implements Runnable {
 		else {
 			currentPower = voltage;
 		}
+		
 	}
 	
 	public double getCurrentPower() {
