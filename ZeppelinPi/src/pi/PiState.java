@@ -34,8 +34,10 @@ public class PiState{
 	*/
 	private float currentHeight = 0;
 	
-	public PiState(){
-		
+	private double maxPower = 0;
+	
+	public PiState(double maxPower){
+		this.maxPower = maxPower;
 	}
 	
 	/**
@@ -94,7 +96,7 @@ public class PiState{
 	 * Returns the percentage of power of the bottom motor.
 	 */
 	public int getBottomMotorPowerPercentage(){
-		return (int) (bottomMotorPower/1024.0*100);
+		return (int) (bottomMotorPower/maxPower*100);
 	}
 	
 	/**

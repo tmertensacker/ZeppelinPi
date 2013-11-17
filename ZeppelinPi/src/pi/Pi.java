@@ -13,6 +13,8 @@ public class Pi {
 	MotorFixed myLeftMotor;
 	MotorFixed myRightMotor;
 	MotorPwm myBottomMotor;
+	final double maxPower = 1024;
+	final double minPower = 824;
 	PiState myPiState;
 	
 	//Motor1
@@ -29,14 +31,14 @@ public class Pi {
 	Pin back4 = RaspiPin.GPIO_12;
 	
 	public Pi() {
-		myPiState = new PiState();
+		myPiState = new PiState(maxPower);
 		myDistance = new DistanceMonitor();
 		myCamera = new Camera();
 		myBottomMotor = new MotorPwm(forw1, back1);
 		//myPiState.setBottomMotorState(1);
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
-		myHeightManager = new HeightManager(myBottomMotor,myPiState, myDistance);
+		myHeightManager = new HeightManager(myBottomMotor,myPiState, myDistance, minPower, maxPower);
 	}
 	
 	public static void main(String [] args)

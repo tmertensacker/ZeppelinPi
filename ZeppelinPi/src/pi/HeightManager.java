@@ -15,10 +15,10 @@ public class HeightManager implements Runnable {
 	private PiState state;
 	private int direction; // 0 = uit; 1 = forward; 2 = backward
 	
-	public HeightManager(MotorPwm heightMotor, PiState pistate, DistanceMonitor distanceMonitor){
+	public HeightManager(MotorPwm heightMotor, PiState pistate, DistanceMonitor distanceMonitor, double minPower, double maxPower){
 		myDistance = distanceMonitor;
-		maxPower = 1024;
-		minPower = 600;
+		this.maxPower = maxPower;
+		this.minPower = minPower;
 		balancePower = 0;
 		//lastHeight = myDistance.getDistance();
 		targetHeight = 100;
@@ -131,7 +131,7 @@ public class HeightManager implements Runnable {
 				}
 				
 				else {
-					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower-200 - minPower));
+					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - minPower));
 				}
 				applyPower();
 			}
