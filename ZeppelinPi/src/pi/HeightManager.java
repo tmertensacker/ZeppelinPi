@@ -127,7 +127,7 @@ public class HeightManager implements Runnable {
 					state.setBottomMotorState(1);
 				}
 				if (Math.abs(newDistance - targetHeight) > 30) {
-					currentPower = maxPower - 200;
+					currentPower = maxPower;
 				}
 				
 				else {
