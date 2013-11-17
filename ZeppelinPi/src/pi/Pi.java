@@ -14,7 +14,7 @@ public class Pi {
 	MotorFixed myRightMotor;
 	MotorPwm myBottomMotor;
 	final double maxPower = 1024;
-	final double minPower = 600;
+	final double minPower = 824;
 	PiState myPiState;
 	
 	//Motor1

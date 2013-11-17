@@ -79,79 +79,81 @@ public class HeightManager2 implements Runnable {
 						}
 					}
 				}
-				if(newDistance < targetHeight){
-					if( vel > 2 ){
-						// we gaan naar boven, maar te snel, zet motor naar beneden
-						if(! (direction == 2)){
-							heightmotor.triggerForwardOff();
-							heightmotor.triggerBackwardOn();
-							direction = 2;
-							setPower(minPower);
-						}
-						else{
-							setPower(heightmotor.getPower()+10);
-						}
-					}
-					else if(vel > 0){
-						// we gaan naar boven, kan nog sneller
-						if(! (direction == 1)){
-							heightmotor.triggerBackwardOff();
-							heightmotor.triggerForwardOn();
-							direction = 1;
-							setPower(minPower);
-						}
-						else{
-							setPower(heightmotor.getPower() + 10);
-						}
-					}
-					else{
-						// we gaan naar onder
-						if(! (direction == 1)){
-							heightmotor.triggerBackwardOff();
-							heightmotor.triggerForwardOn();
-							direction = 1;
-							setPower(minPower);
-						}
-						else{
-							setPower(heightmotor.getPower()+10);
-						}
-					}
-				}
 				else{
-					if( vel < -2){
-						// we gaan naar onder, maar te snel, zet motor naar boven
-						if(! (direction == 1)){
-							heightmotor.triggerBackwardOff();
-							heightmotor.triggerForwardOn();
-							direction = 1;
-							setPower(minPower);
+					if(newDistance < targetHeight){
+						if( vel > 2 ){
+							// we gaan naar boven, maar te snel, zet motor naar beneden
+							if(! (direction == 2)){
+								heightmotor.triggerForwardOff();
+								heightmotor.triggerBackwardOn();
+								direction = 2;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower()+10);
+							}
+						}
+						else if(vel > 0){
+							// we gaan naar boven, kan nog sneller
+							if(! (direction == 1)){
+								heightmotor.triggerBackwardOff();
+								heightmotor.triggerForwardOn();
+								direction = 1;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower() + 10);
+							}
 						}
 						else{
-							setPower(heightmotor.getPower()+10);
-						}
-					}
-					else if( vel < 0 ){
-						// we gaan naar onder, kan sneller
-						if(! (direction == 2)){
-							heightmotor.triggerForwardOff();
-							heightmotor.triggerBackwardOn();
-							direction = 2;
-							setPower(minPower);
-						}
-						else{
-							setPower(heightmotor.getPower() + 10);
+							// we gaan naar onder
+							if(! (direction == 1)){
+								heightmotor.triggerBackwardOff();
+								heightmotor.triggerForwardOn();
+								direction = 1;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower()+10);
+							}
 						}
 					}
 					else{
-						// we gaan naar onder
-						if(! (direction == 2)){
-							heightmotor.triggerForwardOff();
-							heightmotor.triggerBackwardOn();
-							direction = 2;
-							setPower(minPower);
+						if( vel < -2){
+							// we gaan naar onder, maar te snel, zet motor naar boven
+							if(! (direction == 1)){
+								heightmotor.triggerBackwardOff();
+								heightmotor.triggerForwardOn();
+								direction = 1;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower()+10);
+							}
+						}
+						else if( vel < 0 ){
+							// we gaan naar onder, kan sneller
+							if(! (direction == 2)){
+								heightmotor.triggerForwardOff();
+								heightmotor.triggerBackwardOn();
+								direction = 2;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower() + 10);
+							}
 						}
 						else{
-							setPower(heightmotor.getPower()+10);
+							// we gaan naar onder
+							if(! (direction == 2)){
+								heightmotor.triggerForwardOff();
+								heightmotor.triggerBackwardOn();
+								direction = 2;
+								setPower(minPower);
+							}
+							else{
+								setPower(heightmotor.getPower()+10);
+							}
 						}
 					}
 				}
