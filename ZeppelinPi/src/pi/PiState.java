@@ -124,7 +124,7 @@ public class PiState{
 	 */
 	public String toString(){
 		return(getBottomMotorState() +" "+
-				getBottomMotorPower() +" "+
+				getBottomMotorPowerPercentage() +" "+
 				getRightMotorState() +" "+
 				getLeftMotorState() +" "+
 				getHeight());
