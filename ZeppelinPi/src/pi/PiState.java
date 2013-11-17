@@ -94,7 +94,7 @@ public class PiState{
 	 * Returns the percentage of power of the bottom motor.
 	 */
 	public int getBottomMotorPowerPercentage(){
-		return bottomMotorPower/1024*100;
+		return (int) (bottomMotorPower/1024.0*100);
 	}
 	
 	/**
