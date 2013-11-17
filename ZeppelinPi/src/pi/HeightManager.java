@@ -145,12 +145,12 @@ public class HeightManager implements Runnable {
 				}
 				
 				if (Math.abs(newDistance - targetHeight) > 30) {
-					currentPower = maxPower - 50;
+					currentPower = maxPower - 100;
 				}
 				
 				else {
 					
-					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - minPower));
+					setCurrentPower(minPower + (Math.abs(newDistance - targetHeight) / 30)*(maxPower - minPower)-50);
 				}
 				applyPower();
 			}
