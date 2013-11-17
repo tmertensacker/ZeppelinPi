@@ -59,10 +59,11 @@ public class HeightManager2 implements Runnable {
 		while(running){
 			double old_vel = vel;
 			double newDistance = myDistance.getDistance();
+			System.out.println("new distance: "+newDistance);
 			time = System.currentTimeMillis();
 			vel = (newDistance - lastHeight)/(time - prevTime);
 			state.setCurrentHeight((float)newDistance);
-			
+			System.out.println("new vel: "+vel);
 			double diff = Math.abs(targetHeight-newDistance);
 			
 			if (diff < 5 && Math.abs(vel) < 0.1) {
@@ -90,10 +91,18 @@ public class HeightManager2 implements Runnable {
 				else{
 					if(newDistance < targetHeight){
 						if( vel > 0.1 ){
-							if(! (direction == 2))
-								startDownward();
-							else
+							if(direction == 1){
+								int newPower = heightmotor.getPower() - 10;
+								if(newPower < minPower){
+									startDownward();
+								}
+								else{
+									setPower(newPower);
+								}
+							}
+							else{
 								setPower(heightmotor.getPower()+10);
+							}
 						}
 						else if(vel > 0){
 							if(! (direction == 1))
@@ -110,10 +119,18 @@ public class HeightManager2 implements Runnable {
 					}
 					else{
 						if( vel < -0.1){
-							if(! (direction == 1))
-								startUpward();
-							else
+							if(direction == 2){
+								int newPower = heightmotor.getPower() - 10;
+								if(newPower < minPower){
+									startUpward();
+								}
+								else{
+									setPower(newPower);
+								}
+							}
+							else{
 								setPower(heightmotor.getPower()+10);
+							}
 						}
 						else if( vel < 0 ){
 							if(! (direction == 2))
