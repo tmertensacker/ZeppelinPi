@@ -17,7 +17,7 @@ public class PiState{
 	/**
 	* Variable to keep track of the power of the bottom motor. Value between 0 and 1024.
 	*/
-	private int bottomMotorPower = 0;
+	private int bottomMotorPower = 1000;
 	
 	/**
 	* Variable to keep track of the state of the left motor. Either 0 , off, 1, on/forward or 2 on/backward. 
@@ -124,7 +124,7 @@ public class PiState{
 	 */
 	public String toString(){
 		return(getBottomMotorState() +" "+
-				999 +" "+
+				getBottomMotorPowerPercentage() +" "+
 				getRightMotorState() +" "+
 				getLeftMotorState() +" "+
 				getHeight());
