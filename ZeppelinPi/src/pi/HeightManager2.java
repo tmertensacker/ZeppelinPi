@@ -47,7 +47,7 @@ public class HeightManager2 implements Runnable {
 			double old_vel = vel;
 			double newDistance = myDistance.getDistance();
 			time = System.currentTimeMillis();
-			double new_vel = (newDistance - lastHeight)/(time - prevTime);
+			vel = (newDistance - lastHeight)/(time - prevTime);
 			state.setCurrentHeight((float)newDistance);
 			
 			double diff = Math.abs(targetHeight-newDistance);
