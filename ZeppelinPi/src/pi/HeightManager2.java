@@ -67,6 +67,7 @@ public class HeightManager2 implements Runnable {
 			
 			if (diff < 5 && Math.abs(vel) < 1) {
 				// evenwicht
+				setPower(0);
 			}
 			else{
 				if(diff < 5){
