@@ -81,7 +81,7 @@ public class HeightManager2 implements Runnable {
 				}
 				else{
 					if(newDistance < targetHeight){
-						if( vel > 2 ){
+						if( vel > 1 ){
 							// we gaan naar boven, maar te snel, zet motor naar beneden
 							if(! (direction == 2)){
 								heightmotor.triggerForwardOff();
@@ -119,7 +119,7 @@ public class HeightManager2 implements Runnable {
 						}
 					}
 					else{
-						if( vel < -2){
+						if( vel < -1){
 							// we gaan naar onder, maar te snel, zet motor naar boven
 							if(! (direction == 1)){
 								heightmotor.triggerBackwardOff();
