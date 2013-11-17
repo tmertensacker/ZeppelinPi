@@ -52,7 +52,7 @@ public class HeightManager2 implements Runnable {
 		heightmotor.triggerForwardOff();
 		heightmotor.triggerBackwardOn();
 		direction = 2;
-		setPower(minPower);
+		setPower(minPower+100);
 	}
 	
 	public synchronized void run() {
@@ -126,7 +126,7 @@ public class HeightManager2 implements Runnable {
 							if(! (direction == 1))
 								startUpward();
 							else
-								setPower(heightmotor.getPower()+5);
+								setPower(heightmotor.getPower()+2);
 						}
 					}
 					else{
@@ -154,7 +154,7 @@ public class HeightManager2 implements Runnable {
 							if(! (direction == 2))
 								startDownward();
 							else
-								setPower(heightmotor.getPower()+5);
+								setPower(heightmotor.getPower()+1);
 						}
 					}
 				}
