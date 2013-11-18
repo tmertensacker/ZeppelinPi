@@ -109,7 +109,7 @@ public class HeightManager3 implements Runnable {
 		heightmotor.triggerBackwardOff();
 		heightmotor.triggerForwardOn();
 		direction = 1;
-		setPower(minPower);
+		setPower(power);
 		state.setBottomMotorState(1);
 		state.setBottomMotorPower(power);
 	}
@@ -126,7 +126,7 @@ public class HeightManager3 implements Runnable {
 		heightmotor.triggerForwardOff();
 		heightmotor.triggerBackwardOn();
 		direction = 2;
-		setPower(minPower);
+		setPower(power);
 		state.setBottomMotorState(2);
 		state.setBottomMotorPower(power);
 	}
