@@ -30,7 +30,7 @@ public class HeightManager3 implements Runnable {
 	public synchronized void run() {
 		
 		int pTerm = 200;
-		int iTerm = 5;
+		int iTerm = 0;
 		int dTerm = 5;
 		int divider = 150;
 		
