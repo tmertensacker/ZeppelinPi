@@ -123,6 +123,7 @@ public class HeightManager3 implements Runnable {
 	}
 	
 	private void startDownward(int power){
+		System.out.println("startdownward met power"+power);
 		heightmotor.triggerForwardOff();
 		heightmotor.triggerBackwardOn();
 		direction = 2;
