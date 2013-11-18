@@ -75,6 +75,7 @@ public class HeightManager3 implements Runnable {
 					setPower(power);
 				}
 			}
+			System.out.println("direction:" +direction);
 			// als pid negatief -> verander van richting
 			
 			System.out.println("accumulator= "+accumulator);
