@@ -42,6 +42,12 @@ public class Listener implements Runnable
 					//String result = "0 0 0 0 0";
 					outData.writeUTF(result);
 				}
+				// nieuwe manier, via Thread!
+				else {
+					pi.addCommand(inMsg);
+				}
+				// voorlopig in command -> vorige code!
+				/*
 				else if (inMsg.contains("forward ")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.forward(Integer.parseInt(strings.get(1)));
@@ -97,6 +103,7 @@ public class Listener implements Runnable
 				else{
 					//out.writeUTF("error: unknown command");				
 				}
+				*/
 				server.close();
 			}
 			catch(SocketTimeoutException s){
