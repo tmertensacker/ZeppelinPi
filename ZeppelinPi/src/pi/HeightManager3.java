@@ -48,13 +48,13 @@ public class HeightManager3 implements Runnable {
 			pid += iTerm * accumulator;
 			pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
-			
+			System.out.println("pid= "+pid);
 			if(pid > maxPower)
 				pid = maxPower;
 			else if(pid < minPower)
 				pid = minPower;
 			System.out.println("accumulator= "+accumulator);
-			System.out.println("pid= "+pid);
+			
 			//setPower(pid);
 		}
 	}
