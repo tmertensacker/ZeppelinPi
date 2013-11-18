@@ -31,7 +31,7 @@ public class Pi {
 	Pin back4 = RaspiPin.GPIO_12;
 	
 	public Pi() {
-		myPiState = new PiState(maxPower);
+		myPiState = new PiState(minPower, maxPower);
 		myDistance = new DistanceMonitor();
 		myCamera = new Camera();
 		myBottomMotor = new MotorPwm(forw1, back1);
