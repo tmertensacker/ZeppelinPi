@@ -29,10 +29,10 @@ public class HeightManager3 implements Runnable {
 	
 	public synchronized void run() {
 		
-		int pTerm = 2000;
-		int iTerm = 25;
+		int pTerm = 200;
+		int iTerm = 5;
 		int dTerm = 0;
-		int divider = 10;
+		int divider = 20;
 		
 		while(running){
 			double pid;
@@ -41,10 +41,10 @@ public class HeightManager3 implements Runnable {
 			
 			pid = pTerm * error[0];
 			accumulator += error[0];
-			if(accumulator > 40000)
-				accumulator = 40000;
-			else if(accumulator < -40000)
-				accumulator = -40000;
+			if(accumulator > 2000)
+				accumulator = 2000;
+			else if(accumulator < -2000)
+				accumulator = -2000;
 			pid += iTerm * accumulator;
 			pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
