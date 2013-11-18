@@ -19,7 +19,7 @@ public class HeightManager3 implements Runnable {
 		myDistance = distanceMonitor;
 		this.maxPower = maxPower;
 		this.minPower = minPower;
-		this.targetHeight = 100;
+		this.targetHeight = 50;
 		this.heightmotor = heightMotor;
 		this.direction = 0;
 		this.state = pistate;
