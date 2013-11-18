@@ -16,6 +16,7 @@ public class Pi {
 	final double maxPower = 1024;
 	final double minPower = 824;
 	PiState myPiState;
+	Executor executor;
 	
 	//Motor1
 	Pin forw1 = RaspiPin.GPIO_07;
@@ -39,6 +40,7 @@ public class Pi {
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
 		myHeightManager = new HeightManager2(myBottomMotor,myPiState, myDistance, minPower, maxPower);
+		executor = new Executor(this);
 	}
 	
 	public static void main(String [] args)
@@ -48,8 +50,10 @@ public class Pi {
 		try{
 	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
+			Thread ex = new Thread(pi.getExecutor());
 	 		t.start();
 			hm.start();
+			ex.start();
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -60,6 +64,13 @@ public class Pi {
 		return myHeightManager;
 	}
 	
+	public void addCommand(String command) {
+		executor.addCommand(command);
+	}
+	
+	private Executor getExecutor() {
+		return executor;
+	}
 	public float getHeight() {
 		float returnHeight = myDistance.getDistance();
 		myPiState.setCurrentHeight(returnHeight);
@@ -89,7 +100,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	public void forward(int time) {
+	/*public void forward(int time) {
 		forwardStart();
 		try {
 			Thread.sleep(time);
@@ -97,7 +108,7 @@ public class Pi {
 		    Thread.currentThread().interrupt();
 		}
 		forwardStop();
-	}
+	}*/
 	
 	public void backwardStart(){
 		myLeftMotor.triggerBackwardOn();
@@ -113,7 +124,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	public void backward(int time) {
+	/*public void backward(int time) {
 		backwardStart();
 		try {
 			Thread.sleep(time);
@@ -121,7 +132,7 @@ public class Pi {
 			Thread.currentThread().interrupt();
 		}
 		backwardStop();
-	}
+	}*/
 	
 	public void turnLeftStart(){		
 		myLeftMotor.triggerBackwardOn();
@@ -137,7 +148,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	public void turnLeft(int time) {
+	/*public void turnLeft(int time) {
 		turnLeftStart();
 		try {
 			Thread.sleep(time);
@@ -145,7 +156,7 @@ public class Pi {
 			Thread.currentThread().interrupt();
 		}
 		turnLeftStop();
-	}
+	}*/
 	
 	public void turnRightStart(){
 		myLeftMotor.triggerForwardOn();
@@ -161,7 +172,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	public void turnRight(int time) {
+	/*public void turnRight(int time) {
 		turnRightStart();
 		try {
 			Thread.sleep(time);
@@ -169,7 +180,7 @@ public class Pi {
 			Thread.currentThread().interrupt();
 		}
 		turnRightStop();
-	}
+	}*/
 	
 	public void climbStart(){
 		myHeightManager.setRunning(false);
