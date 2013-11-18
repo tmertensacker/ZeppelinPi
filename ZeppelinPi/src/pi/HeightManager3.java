@@ -45,15 +45,35 @@ public class HeightManager3 implements Runnable {
 				accumulator = 2000;
 			else if(accumulator < -2000)
 				accumulator = -2000;
-			//pid += iTerm * accumulator;
+			pid += iTerm * accumulator;
 			//pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
 			System.out.println("pid= "+pid);
+			int power = (int) Math.round(pid+minPower);
+			System.out.println("power voor max-min test:" + power);
+			if(power > maxPower)
+				power = (int) maxPower;
+			else if(power < minPower)
+				power = (int) minPower;
+			System.out.println("power na max-min test:" + power);
+			if(pid < 0){
+				if(!(direction==2)){
+					startDownward(power);
+				}
+				else{
+					setPower(power);
+				}
+			}
+			else{
+				if(!(direction==1)){
+					startUpward(power);
+				}
+				else{
+					setPower(power);
+				}
+			}
 			// als pid negatief -> verander van richting
-			if(pid > maxPower)
-				pid = maxPower;
-			else if(pid < minPower)
-				pid = minPower;
+			
 			System.out.println("accumulator= "+accumulator);
 			
 			//setPower(pid);
