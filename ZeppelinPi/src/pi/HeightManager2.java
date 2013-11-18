@@ -39,6 +39,8 @@ public class HeightManager2 implements Runnable {
 			e.printStackTrace();
 		}
 		currentPower = 0;
+		heightmotor.setPower(0);
+		state.setBottomMotorPower(0);
 	}
 	
 	private void startUpward(){
@@ -46,6 +48,8 @@ public class HeightManager2 implements Runnable {
 		heightmotor.triggerForwardOn();
 		direction = 1;
 		setPower(minPower);
+		state.setBottomMotorState(1);
+		state.setBottomMotorPower((int) minPower);
 	}
 	
 	private void startDownward(){
@@ -53,6 +57,8 @@ public class HeightManager2 implements Runnable {
 		heightmotor.triggerBackwardOn();
 		direction = 2;
 		setPower(minPower);
+		state.setBottomMotorState(2);
+		state.setBottomMotorPower((int) minPower);
 	}
 	
 	public synchronized void run() {
@@ -206,6 +212,7 @@ public class HeightManager2 implements Runnable {
 			voltage = maxPower;
 		currentPower = voltage;
 		heightmotor.setPower((int)voltage);
+		state.setBottomMotorPower((int) currentPower);
 	}
 	
 	public double getCurrentPower() {
