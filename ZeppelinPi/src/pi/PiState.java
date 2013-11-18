@@ -99,7 +99,7 @@ public class PiState{
 	 */
 	public int getBottomMotorPowerPercentage(){
 		int diff = (int) (maxPower-minPower);
-		return (int) (bottomMotorPower/diff*100);
+		return (int) ((bottomMotorPower-minPower)/diff*100);
 	}
 	
 	/**
