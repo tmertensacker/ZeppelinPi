@@ -45,8 +45,8 @@ public class HeightManager3 implements Runnable {
 				accumulator = 2000;
 			else if(accumulator < -2000)
 				accumulator = -2000;
-			pid += iTerm * accumulator;
-			pid += dTerm * (error[0] - error[5]);
+			//pid += iTerm * accumulator;
+			//pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
 			System.out.println("pid= "+pid);
 			// als pid negatief -> verander van richting
