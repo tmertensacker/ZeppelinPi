@@ -49,7 +49,7 @@ public class HeightManager3 implements Runnable {
 			//pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
 			System.out.println("pid= "+pid);
-			int power = (int) Math.round(pid+minPower);
+			int power = (int) Math.round(Math.abs(pid)+minPower);
 			System.out.println("power voor max-min test:" + power);
 			if(power > maxPower)
 				power = (int) maxPower;
