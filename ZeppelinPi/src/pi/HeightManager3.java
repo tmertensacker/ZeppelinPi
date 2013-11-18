@@ -31,8 +31,8 @@ public class HeightManager3 implements Runnable {
 		
 		int pTerm = 200;
 		int iTerm = 5;
-		int dTerm = 0;
-		int divider = 20;
+		int dTerm = 5;
+		int divider = 200;
 		
 		while(running){
 			double pid;
@@ -49,6 +49,7 @@ public class HeightManager3 implements Runnable {
 			pid += dTerm * (error[0] - error[5]);
 			pid /= divider;
 			System.out.println("pid= "+pid);
+			// als pid negatief -> verander van richting
 			if(pid > maxPower)
 				pid = maxPower;
 			else if(pid < minPower)
