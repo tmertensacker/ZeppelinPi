@@ -32,7 +32,7 @@ public class HeightManager3 implements Runnable {
 		int pTerm = 200;
 		int iTerm = 5;
 		int dTerm = 5;
-		int divider = 200;
+		int divider = 150;
 		
 		while(running){
 			double pid;
