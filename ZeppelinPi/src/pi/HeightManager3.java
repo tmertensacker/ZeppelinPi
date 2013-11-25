@@ -40,21 +40,16 @@ public class HeightManager3 implements Runnable {
 			
 			pid = pTerm * error[0];
 			accumulator += error[0];
-			if(accumulator > 100)
-				accumulator = 100;
-			else if(accumulator < -100)
-				accumulator = -100;
 			pid += iTerm * accumulator;
 			pid += dTerm * (error[0] - error[3]);
+			System.out.println("pre_pid= "+pid);
+			double pre_pid = pid;
+			if(Math.abs(pid) > (maxPower - minPower)){
+				pid = maxPower - minPower;
+				accumulator -= (pre_pid-pid);
+			}
 			System.out.println("pid= "+pid);
-			
 			int power = (int) Math.round(Math.abs(pid)+minPower);
-			System.out.println("power voor max-min test:" + power);
-			if(power > maxPower)
-				power = (int) maxPower;
-			else if(power < minPower)
-				power = (int) minPower;
-			System.out.println("power na max-min test:" + power);
 			if(pid < 0){
 				System.out.println("pid < 0");
 				if(!(direction==2)){
@@ -67,6 +62,7 @@ public class HeightManager3 implements Runnable {
 			}
 			else{
 				if(!(direction==1)){
+					System.out.println("startupward");
 					startUpward(power);
 				}
 				else{
@@ -74,11 +70,7 @@ public class HeightManager3 implements Runnable {
 				}
 			}
 			System.out.println("direction:" +direction);
-			// als pid negatief -> verander van richting
-			
 			System.out.println("accumulator= "+accumulator);
-			
-			//setPower(pid);
 		}
 	}
 	
@@ -120,7 +112,6 @@ public class HeightManager3 implements Runnable {
 	}
 	
 	private void startDownward(int power){
-		System.out.println("startdownward met power"+power);
 		heightmotor.triggerForwardOff();
 		heightmotor.triggerBackwardOn();
 		direction = 2;
