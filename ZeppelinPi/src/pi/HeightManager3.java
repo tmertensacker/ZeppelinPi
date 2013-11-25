@@ -30,7 +30,7 @@ public class HeightManager3 implements Runnable {
 	public synchronized void run() {
 		
 		double pTerm = 1.33;
-		double iTerm = 0.133;
+		double iTerm = 0.0133;
 		double dTerm = 0;
 		
 		while(running){
