@@ -27,12 +27,11 @@ public class HeightManager3 implements Runnable {
 		this.accumulator = 0;
 	}
 	
+	private double pTerm = 1;
+	private double iTerm = 0;
+	private double dTerm = 0;
+	
 	public synchronized void run() {
-		
-		double pTerm = 1.33;
-		double iTerm = 0.0133;
-		double dTerm = 0;
-		
 		while(running){
 			double pid;
 			calcError();
