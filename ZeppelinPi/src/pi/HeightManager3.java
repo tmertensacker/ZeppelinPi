@@ -19,7 +19,7 @@ public class HeightManager3 implements Runnable {
 		myDistance = distanceMonitor;
 		this.maxPower = maxPower;
 		this.minPower = minPower;
-		this.targetHeight = 50;
+		this.targetHeight = 80;
 		this.heightmotor = heightMotor;
 		this.direction = 0;
 		this.state = pistate;
@@ -27,9 +27,9 @@ public class HeightManager3 implements Runnable {
 		this.accumulator = 0;
 	}
 	
-	private double pTerm = 1;
+	private double pTerm = 2;
 	private double iTerm = 0;
-	private double dTerm = 0;
+	private double dTerm = 0.7;
 	
 	public synchronized void run() {
 		while(running){
