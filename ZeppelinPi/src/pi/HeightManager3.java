@@ -66,6 +66,8 @@ public class HeightManager3 implements Runnable {
 					startUpward(power);
 				}
 				else{
+					if(power > 924)
+						power = 924;
 					setPower(power);
 				}
 			}
