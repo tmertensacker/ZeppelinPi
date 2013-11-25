@@ -86,6 +86,14 @@ public class Pi {
 		}
 	}
 	
+	public void stop() { //deze methode laat de zeppelin ogenblikkelijk stoppen met commandos uit te voeren, waarnaa hij terug bestuurbaar is door de pijltjestoetsen.
+		executor.stopExecuting();
+		executor.clearQueue(); // al dan niet noodzakelijk..?
+		myLeftMotor.triggerForwardOff();
+		myLeftMotor.triggerBackwardOff();
+		myRightMotor.triggerBackwardOff();
+		myRightMotor.triggerForwardOff();
+	}
 	public void forwardStart(){
 		myLeftMotor.triggerForwardOn();
 		myPiState.setLeftMotorState(1);

@@ -136,4 +136,8 @@ public class Executor implements Runnable{
 	public void startExecuting() {
 		this.executing = true;
 	}
+	
+	public void clearQueue() {
+		queue.clear();
+	}
 }

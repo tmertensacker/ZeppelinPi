@@ -42,6 +42,9 @@ public class Listener implements Runnable
 					//String result = "0 0 0 0 0";
 					outData.writeUTF(result);
 				}
+				else if(inMsg.equals("stop")) {
+					pi.stop();
+				}
 				// nieuwe manier, via Thread!
 				else {
 					pi.addCommand(inMsg);
