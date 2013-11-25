@@ -29,10 +29,10 @@ public class HeightManager3 implements Runnable {
 	
 	public synchronized void run() {
 		
-		int pTerm = 2;
-		int iTerm = 0;
-		int dTerm = 5;
-		int divider = 1;
+		double pTerm = 1.33;
+		double iTerm = 0.133;
+		double dTerm = 0;
+		
 		while(running){
 			double pid;
 			calcError();
@@ -40,13 +40,12 @@ public class HeightManager3 implements Runnable {
 			
 			pid = pTerm * error[0];
 			accumulator += error[0];
-			if(accumulator > 2000)
-				accumulator = 2000;
-			else if(accumulator < -2000)
-				accumulator = -2000;
+			if(accumulator > 100)
+				accumulator = 100;
+			else if(accumulator < -100)
+				accumulator = -100;
 			pid += iTerm * accumulator;
-			//pid += dTerm * (error[0] - error[5]);
-			pid /= divider;
+			pid += dTerm * (error[0] - error[3]);
 			System.out.println("pid= "+pid);
 			
 			int power = (int) Math.round(Math.abs(pid)+minPower);
@@ -142,8 +141,4 @@ public class HeightManager3 implements Runnable {
 		heightmotor.setPower((int)voltage);
 		state.setBottomMotorPower((int)voltage);
 	}
-	
-	
-	
-	
 }
