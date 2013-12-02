@@ -220,7 +220,11 @@ public class HeightManager2 implements Runnable {
 	}
 	
 	public void setRunning(boolean bool){
-		setPower(0);
 		running = bool;		
+	}
+	
+	public void stopRunning() {
+		setPower(0);
+		running = false;
 	}
 }

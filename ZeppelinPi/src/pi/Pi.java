@@ -237,7 +237,7 @@ public class Pi {
 	
 	public void terminate() {
 		executor.stopExecuting();
-		myHeightManager.setRunning(false);
+		myHeightManager.stopRunning();
 		System.exit(0);
 	}
 }
