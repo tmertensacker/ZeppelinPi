@@ -31,7 +31,8 @@ public class Listener implements Runnable
 				DataOutputStream outData = new DataOutputStream(out);
 				if(inMsg.equals("takepicture")){
 					pi.takePicture();
-					InputStream inFile = new FileInputStream("picture.jpg");                        
+					File file = new File("picture.jpg");
+					InputStream inFile = new FileInputStream(file);                        
 					copy(inFile, out);
 					inFile.close();
 				}
