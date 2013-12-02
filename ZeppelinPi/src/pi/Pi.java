@@ -40,7 +40,7 @@ public class Pi {
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
 		myHeightManager = new HeightManager2(myBottomMotor,myPiState, myDistance, minPower, maxPower);
-		executor = new Executor(this);
+		//executor = new Executor(this);
 	}
 	
 	public static void main(String [] args)
@@ -50,7 +50,7 @@ public class Pi {
 		try{
 	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
-			Thread ex = new Thread(pi.getExecutor());
+			Thread ex = new Thread(new Executor(pi));
 	 		t.start();
 			hm.start();
 			ex.start();
