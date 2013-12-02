@@ -82,7 +82,7 @@ public class Executor implements Runnable{
 						}
 						pi.descendStop();
 					}
-					else if(command.equals("forwardstart"))
+					/*else if(command.equals("forwardstart"))
 						pi.forwardStart();
 					else if(command.equals("forwardstop"))
 						pi.forwardStop();
@@ -116,7 +116,7 @@ public class Executor implements Runnable{
 						else{
 							//onbekend commando
 						}
-					}
+					}*/
 					else {
 						// commando niet gevonden/verwerkt!
 					}

@@ -9,16 +9,18 @@ public class Listener implements Runnable
 {
 	private ServerSocket serverSocket;
 	private Pi pi;
+	private boolean listening;
 	
 	public Listener(int port, Pi pi) throws IOException
 	{
 		this.pi = pi;
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
+		listening = true;
 	}
 	public synchronized void run()
 	{
-		while(true){
+		while(listening){
 			try{
 				System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 				Socket server = serverSocket.accept();
@@ -45,6 +47,36 @@ public class Listener implements Runnable
 				else if(inMsg.equals("stop")) {
 					pi.stop();
 				}
+				else if(inMsg.equals("forwardstart")) 
+					pi.forwardStart();
+				else if(inMsg.equals("forwardstop"))
+					pi.forwardStop();
+				else if(inMsg.equals("backwardstart"))
+					pi.backwardStart();				
+				else if(inMsg.equals("backwardstop"))
+					pi.backwardStop();
+				else if(inMsg.equals("climbstart"))
+					pi.climbStart();
+				else if(inMsg.equals("climbstop"))
+					pi.climbStop();
+				else if(inMsg.equals("descendstart"))
+					pi.descendStart();
+				else if(inMsg.equals("descendstop"))
+					pi.descendStop();
+				else if(inMsg.equals("turnrightstart"))
+					pi.turnRightStart();
+				else if(inMsg.equals("turnrightstop"))
+					pi.turnRightStop();
+				else if(inMsg.equals("turnleftstart"))
+					pi.turnLeftStart();
+				else if(inMsg.equals("turnleftstop"))
+					pi.turnLeftStop();
+				else if(inMsg.contains("stayatheight")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.goToHeight(Integer.parseInt(strings.get(1)));
+				}
+				else if(inMsg.equals("terminate"))
+					pi.terminate();					
 				// nieuwe manier, via Thread!
 				else {
 					pi.addCommand(inMsg);
@@ -126,6 +158,10 @@ public class Listener implements Runnable
 		while ((len = in.read(buf)) != -1) {
 			out.write(buf, 0, len);
 		}
+	}
+	
+	public void stopListening() {
+		listening = false;
 	}
 
 }
