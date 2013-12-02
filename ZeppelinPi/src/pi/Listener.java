@@ -29,11 +29,7 @@ public class Listener implements Runnable
 				String inMsg = in.readUTF();
 				OutputStream out = server.getOutputStream();
 				DataOutputStream outData = new DataOutputStream(out);
-				if(inMsg.equals("getheight")){
-					float height = pi.getHeight();
-					outData.writeUTF(Float.toString(height));
-				}
-				else if(inMsg.equals("takepicture")){
+				if(inMsg.equals("takepicture")){
 					pi.takePicture();
 					InputStream inFile = new FileInputStream("picture.jpg");                        
 					copy(inFile, out);
@@ -44,33 +40,33 @@ public class Listener implements Runnable
 					//String result = "0 0 0 0 0";
 					outData.writeUTF(result);
 				}
-				else if(inMsg.equals("stop")) {
+				else if(inMsg.contains("stop")) {
 					pi.stop();
 				}
 				else if(inMsg.equals("forwardstart")) 
 					pi.forwardStart();
-				else if(inMsg.equals("forwardstop"))
-					pi.forwardStop();
+//				else if(inMsg.equals("forwardstop"))
+//					pi.forwardStop();
 				else if(inMsg.equals("backwardstart"))
 					pi.backwardStart();				
-				else if(inMsg.equals("backwardstop"))
-					pi.backwardStop();
-				else if(inMsg.equals("climbstart"))
-					pi.climbStart();
-				else if(inMsg.equals("climbstop"))
-					pi.climbStop();
+//				else if(inMsg.equals("backwardstop"))
+//					pi.backwardStop();
+//				else if(inMsg.equals("climbstart"))
+//					pi.climbStart();
+//				else if(inMsg.equals("climbstop"))
+//					pi.climbStop();
 				else if(inMsg.equals("descendstart"))
 					pi.descendStart();
-				else if(inMsg.equals("descendstop"))
-					pi.descendStop();
+//				else if(inMsg.equals("descendstop"))
+//					pi.descendStop();
 				else if(inMsg.equals("turnrightstart"))
 					pi.turnRightStart();
-				else if(inMsg.equals("turnrightstop"))
-					pi.turnRightStop();
+//				else if(inMsg.equals("turnrightstop"))
+//					pi.turnRightStop();
 				else if(inMsg.equals("turnleftstart"))
 					pi.turnLeftStart();
-				else if(inMsg.equals("turnleftstop"))
-					pi.turnLeftStop();
+//				else if(inMsg.equals("turnleftstop"))
+//					pi.turnLeftStop();
 				else if(inMsg.contains("stayatheight")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(Integer.parseInt(strings.get(1)));
