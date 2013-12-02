@@ -42,7 +42,7 @@ public class Executor implements Runnable{
 						}
 						pi.backwardStop();
 					}
-					else if (command.contains("turnleft")) {
+					else if (command.contains("turnleft ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.turnLeftStart();
 						try {
@@ -52,7 +52,7 @@ public class Executor implements Runnable{
 						}
 						pi.turnRightStop();
 					}
-					else if (command.contains("turnright")) {
+					else if (command.contains("turnright ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.turnLeftStart();
 						try {
@@ -62,7 +62,7 @@ public class Executor implements Runnable{
 						}
 						pi.turnRightStop();
 					}
-					else if (command.contains("climb")) {
+					else if (command.contains("climb ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.climbStart();
 						try {
@@ -72,7 +72,7 @@ public class Executor implements Runnable{
 						}
 						pi.climbStop();
 					}
-					else if ( command.contains("descend")) {
+					else if ( command.contains("descend ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.descendStart();
 						try {
