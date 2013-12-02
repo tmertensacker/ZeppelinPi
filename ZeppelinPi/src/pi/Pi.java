@@ -91,8 +91,10 @@ public class Pi {
 		executor.clearQueue(); // al dan niet noodzakelijk..?
 		myLeftMotor.triggerForwardOff();
 		myLeftMotor.triggerBackwardOff();
+		myPiState.setLeftMotorState(0);
 		myRightMotor.triggerBackwardOff();
 		myRightMotor.triggerForwardOff();
+		myPiState.setRightMotorState(0);
 	}
 	public void forwardStart(){
 		myLeftMotor.triggerForwardOn();
