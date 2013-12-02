@@ -234,4 +234,8 @@ public class Pi {
 	public String getPiState(){
 		return myPiState.toString();
 	}
+	
+	public void terminate() {
+		System.exit(0);
+	}
 }

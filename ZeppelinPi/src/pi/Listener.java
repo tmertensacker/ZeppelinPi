@@ -67,11 +67,14 @@ public class Listener implements Runnable
 					pi.turnRightStop();
 				else if(inMsg.equals("turnleftstart"))
 					pi.turnLeftStart();
+				else if(inMsg.equals("turnleftstop"))
+					pi.turnLeftStop();
 				else if(inMsg.contains("stayatheight")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(Integer.parseInt(strings.get(1)));
 				}
-					
+				else if(inMsg.equals("terminate"))
+					pi.terminate();					
 				// nieuwe manier, via Thread!
 				else {
 					pi.addCommand(inMsg);
