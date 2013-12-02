@@ -71,8 +71,10 @@ public class Listener implements Runnable
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(Integer.parseInt(strings.get(1)));
 				}
-				else if(inMsg.equals("terminate"))
-					pi.terminate();					
+				else if(inMsg.equals("terminate")) {
+					stopListening();
+					pi.terminate();	
+				}
 				// nieuwe manier, via Thread!
 				else {
 					pi.addCommand(inMsg);
