@@ -28,7 +28,7 @@ public class HeightManager3 implements Runnable {
 	}
 	
 	private double pTerm = 2;
-	private double iTerm = 0;
+	private double iTerm = 0.03;
 	private double dTerm = 0.7;
 	
 	public synchronized void run() {
@@ -36,40 +36,27 @@ public class HeightManager3 implements Runnable {
 			double pid;
 			calcError();
 			state.setCurrentHeight((float)error[0]);
-			
 			pid = pTerm * error[0];
 			accumulator += error[0];
 			pid += iTerm * accumulator;
 			pid += dTerm * (error[0] - error[3]);
-			//System.out.println("pre_pid= "+pid);
-			double pre_pid = pid;
 			if(Math.abs(pid) > (maxPower - minPower)){
 				pid = maxPower - minPower;
-				accumulator -= (pre_pid-pid);
+				accumulator -= error[0];
 			}
-			//System.out.println("pid= "+pid);
 			int power = (int) Math.round(Math.abs(pid)+minPower);
 			if(pid < 0){
-				System.out.println("pid < 0");
-				if(!(direction==2)){
-					//System.out.println("startdownward");
+				if(!(direction==2))
 					startDownward(power);
-				}
-				else{
+				else
 					setPower(power);
-				}
 			}
 			else{
-				if(!(direction==1)){
-					//System.out.println("startupward");
+				if(!(direction==1))
 					startUpward(power);
-				}
-				else{
+				else
 					setPower(power);
-				}
 			}
-			//System.out.println("direction:" +direction);
-			//System.out.println("accumulator= "+accumulator);
 		}
 	}
 	
@@ -79,7 +66,6 @@ public class HeightManager3 implements Runnable {
 		double newDistance = myDistance.getDistance();
 		error[0] = targetHeight - newDistance;
 		System.out.println("newDistance: "+newDistance);
-		//System.out.println("new error: "+error[0]);
 	}
 	
 	public void terminate(){
