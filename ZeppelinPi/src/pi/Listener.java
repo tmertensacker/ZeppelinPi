@@ -9,16 +9,18 @@ public class Listener implements Runnable
 {
 	private ServerSocket serverSocket;
 	private Pi pi;
+	private boolean listening;
 	
 	public Listener(int port, Pi pi) throws IOException
 	{
 		this.pi = pi;
 		serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(10000);
+		listening = true;
 	}
 	public synchronized void run()
 	{
-		while(true){
+		while(listening){
 			try{
 				System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 				Socket server = serverSocket.accept();
@@ -156,6 +158,10 @@ public class Listener implements Runnable
 		while ((len = in.read(buf)) != -1) {
 			out.write(buf, 0, len);
 		}
+	}
+	
+	public void stopListening() {
+		listening = false;
 	}
 
 }
