@@ -219,6 +219,10 @@ public class HeightManager2 implements Runnable {
 		return currentPower;
 	}
 	
+	public double getTargetHeight() {
+		return targetHeight;
+	}
+	
 	public void setRunning(boolean bool){
 		running = bool;		
 	}

@@ -72,6 +72,14 @@ public class Listener implements Runnable
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(Integer.parseInt(strings.get(1)));
 				}
+				else if (inMsg.contains("climb ")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.goToHeight(pi.getTargetHeight() + Integer.parseInt(strings.get(1)));
+				}
+				else if (inMsg.contains("descent ")) {
+					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
+					pi.goToHeight(pi.getTargetHeight() - Integer.parseInt(strings.get(1)));
+				}
 				else if(inMsg.equals("terminate")) {
 					stopListening();
 					pi.terminate();	

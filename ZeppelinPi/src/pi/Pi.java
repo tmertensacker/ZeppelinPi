@@ -240,4 +240,7 @@ public class Pi {
 		myHeightManager.stopRunning();
 		System.exit(0);
 	}
+	public double getTargetHeight() {
+		return myHeightManager.getTargetHeight();
+	}
 }
