@@ -1,5 +1,7 @@
 package pi;
 
+
+
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,11 +11,25 @@ public class Executor implements Runnable{
 	private LinkedList<String> queue;
 	private boolean executing;
 	private Pi pi;
+	private int forwardOn;
+	private int forwardOff;
+	private int backwardOn;
+	private int backwardOff;
+	private int turnforwardOn;
+	private int turnbackwardOnExtraTime;
+	private int turnOff;
 
 	public Executor(Pi pi) {
 		queue = new LinkedList<String>();
 		executing = false;
 		this.pi = pi;
+		forwardOn = 100;
+		forwardOff = 200;
+		backwardOn = 200;
+		backwardOff = 100;
+		turnforwardOn = 80;
+		turnbackwardOnExtraTime = 180;
+		turnOff = 200;
 	}
 	
 	public synchronized void run(){
@@ -23,14 +39,18 @@ public class Executor implements Runnable{
 					String command = queue.poll();
 
 					if (command.contains("goforward ")) {
+						int constant = 100;
 						List<String> strings = Arrays.asList(command.split("\\s+"));
-						pi.forwardStart();
+						//for(int i = 0; i < strings.get(1)/100; i++);
+						pi.forward(100);
+						
+						/*pi.forwardStart();
 						try {
 							Thread.sleep(Integer.parseInt(strings.get(1)));
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
-						pi.forwardStop();
+						pi.forwardStop();*/
 					}
 					else if (command.contains("gobackward ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
@@ -62,7 +82,7 @@ public class Executor implements Runnable{
 						}
 						pi.turnRightStop();
 					}
-					else if (command.contains("climb ")) {
+					/*else if (command.contains("climb ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.climbStart();
 						try {
@@ -81,7 +101,7 @@ public class Executor implements Runnable{
 						    Thread.currentThread().interrupt();
 						}
 						pi.descendStop();
-					}
+					}*/
 					/*else if(command.equals("forwardstart"))
 						pi.forwardStart();
 					else if(command.equals("forwardstop"))
@@ -139,5 +159,58 @@ public class Executor implements Runnable{
 	
 	public void clearQueue() {
 		queue.clear();
+	}
+	
+	public void forwardPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.forwardStart();
+			waitForXMillis(forwardOn);
+			pi.forwardStop();
+			waitForXMillis(forwardOff);
+		}
+	}
+	
+	public void backwardPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.backwardStart();
+			waitForXMillis(backwardOn);
+			pi.backwardStop();
+			waitForXMillis(backwardOff);
+		}
+	}
+	
+	public void turRightPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.getRightMotor().triggerBackwardOn();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getLeftMotor().triggerForwardOn();
+			waitForXMillis(turnforwardOn);
+			pi.getLeftMotor().triggerForwardOff();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getRightMotor().triggerBackwardOff();
+			waitForXMillis(turnOff);
+		}
+	}
+	
+	public void turLeftPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.getLeftMotor().triggerBackwardOn();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getRightMotor().triggerForwardOn();
+			waitForXMillis(turnforwardOn);
+			pi.getRightMotor().triggerForwardOff();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getLeftMotor().triggerBackwardOff();
+			waitForXMillis(turnOff);
+		}
+	}
+	
+	public void waitForXMillis(int number) {
+		try {
+			Thread.sleep(number);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

@@ -56,8 +56,8 @@ public class Listener implements Runnable
 //					pi.climbStart();
 //				else if(inMsg.equals("climbstop"))
 //					pi.climbStop();
-				else if(inMsg.equals("descendstart"))
-					pi.descendStart();
+				//else if(inMsg.equals("descendstart"))
+				//	pi.descendStart();
 //				else if(inMsg.equals("descendstop"))
 //					pi.descendStop();
 				else if(inMsg.equals("turnrightstart"))
@@ -76,7 +76,7 @@ public class Listener implements Runnable
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(pi.getTargetHeight() + Integer.parseInt(strings.get(1)));
 				}
-				else if (inMsg.contains("descent ")) {
+				else if (inMsg.contains("descend ")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
 					pi.goToHeight(pi.getTargetHeight() - Integer.parseInt(strings.get(1)));
 				}

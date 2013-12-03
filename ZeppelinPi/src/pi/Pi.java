@@ -1,4 +1,4 @@
-package pi;
+
 import java.io.IOException;
 
 import com.pi4j.io.gpio.Pin;
@@ -110,7 +110,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	/*public void forward(int time) {
+	public void forward(int time) {
 		forwardStart();
 		try {
 			Thread.sleep(time);
@@ -118,7 +118,7 @@ public class Pi {
 		    Thread.currentThread().interrupt();
 		}
 		forwardStop();
-	}*/
+	}
 	
 	public void backwardStart(){
 		myLeftMotor.triggerBackwardOn();
@@ -242,5 +242,13 @@ public class Pi {
 	}
 	public double getTargetHeight() {
 		return myHeightManager.getTargetHeight();
+	}
+	
+	public MotorFixed getLeftMotor() {
+		return myLeftMotor;
+	}
+	
+	public MotorFixed getRightMotor() {
+		return myRightMotor;
 	}
 }
