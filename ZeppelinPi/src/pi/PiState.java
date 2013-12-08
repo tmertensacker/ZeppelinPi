@@ -142,8 +142,8 @@ public class PiState{
 				getBottomMotorPowerPercentage() +" "+
 				getRightMotorState() +" "+
 				getLeftMotorState() +" "+
-				getHeight()) +" "+
-				getTargetHeight();
+				getHeight() +" "+
+				getTargetHeight());
 	}
 	
 }	
