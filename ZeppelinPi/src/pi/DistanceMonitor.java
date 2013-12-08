@@ -251,7 +251,7 @@ public class DistanceMonitor {
 			this.triggerSensor();
 			this.waitForSignal();
 			long duration = this.measureSignal();
-			return duration * SOUND_SPEED / ( 2 * 10000 );
+			return duration * SOUND_SPEED / ( 2.0f * 10000 );
 		}
 		catch(TimeoutException e){
 			return -1;
