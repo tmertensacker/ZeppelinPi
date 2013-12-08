@@ -114,16 +114,6 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	public void forward(int time) {
-		forwardStart();
-		try {
-			Thread.sleep(time);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
-		forwardStop();
-	}
-	
 	public void backwardStart(){
 		myLeftMotor.triggerBackwardOn();
 		myPiState.setLeftMotorState(2);
@@ -137,16 +127,6 @@ public class Pi {
 		myRightMotor.triggerBackwardOff();
 		myPiState.setRightMotorState(0);
 	}
-	
-	/*public void backward(int time) {
-		backwardStart();
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-		backwardStop();
-	}*/
 	
 	public void turnLeftStart(){		
 		myLeftMotor.triggerBackwardOn();
@@ -162,16 +142,6 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	/*public void turnLeft(int time) {
-		turnLeftStart();
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-		turnLeftStop();
-	}*/
-	
 	public void turnRightStart(){
 		myLeftMotor.triggerForwardOn();
 		myPiState.setLeftMotorState(1);
@@ -186,15 +156,6 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	/*public void turnRight(int time) {
-		turnRightStart();
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-		turnRightStop();
-	}*/
 	
 	/*public void climbStart(){
 		myHeightManager.setRunning(false);
@@ -255,5 +216,9 @@ public class Pi {
 	
 	public MotorFixed getRightMotor() {
 		return myRightMotor;
+	}
+	
+	public PiState getPiStateObject() {
+		return myPiState;
 	}
 }
