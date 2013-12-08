@@ -16,10 +16,12 @@ public void makePicture() throws IOException{
 		File file = new File("picture.jpg");
 		file.delete();
 	    Runtime.getRuntime().exec("raspistill -o picture.jpg -t 0");
-	    while(! file.exists()){
-	    		   // niks 
-	    }
-		// met -n kan je instellen dat er geen preview getoond wordt en dat er dus meteen een foto genomen wordt
+	    long prevTime = System.currentTimeMillis();
+		long currTime = System.currentTimeMillis();
+		while(currTime - prevTime > 3000){
+			currTime = System.currentTimeMillis();
+		}
+			// met -n kan je instellen dat er geen preview getoond wordt en dat er dus meteen een foto genomen wordt
 	}
 	catch(IOException ieo){
 		ieo.printStackTrace();
