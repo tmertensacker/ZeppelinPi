@@ -186,6 +186,19 @@ public class Executor implements Runnable{
 		}
 	}
 	
+	public void turLeftPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.getLeftMotor().triggerBackwardOn();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getRightMotor().triggerForwardOn();
+			waitForXMillis(turnforwardOn);
+			pi.getRightMotor().triggerForwardOff();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getLeftMotor().triggerBackwardOff();
+			waitForXMillis(turnOff);
+		}
+	}
+	
 	public void waitForXMillis(int number) {
 		try {
 			Thread.sleep(number);
