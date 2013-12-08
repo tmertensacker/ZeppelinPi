@@ -233,6 +233,7 @@ public class Pi {
 	
 	public void goToHeight(double newTargetHeight) {
 		myHeightManager.setTargetHeight(newTargetHeight);
+		myPiState.setTargetHeight((float)newTargetHeight);
 	}
 	
 	public String getPiState(){
