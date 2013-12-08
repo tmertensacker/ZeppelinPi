@@ -1,4 +1,5 @@
 package pi;
+import MotorFixed;
 
 import java.io.IOException;
 
@@ -8,7 +9,7 @@ import com.pi4j.io.gpio.RaspiPin;
 
 
 public class Pi {
-	HeightManager2 myHeightManager;
+	HeightManager3 myHeightManager;
 	DistanceMonitor myDistance;
 	Camera myCamera;
 	MotorFixed myLeftMotor;
@@ -40,7 +41,7 @@ public class Pi {
 		//myPiState.setBottomMotorState(1);
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
-		myHeightManager = new HeightManager2(myBottomMotor,myPiState, myDistance, minPower, maxPower);
+		myHeightManager = new HeightManager3(myBottomMotor,myPiState, myDistance, minPower, maxPower);
 		executor = new Executor(this);
 	}
 	
@@ -61,7 +62,7 @@ public class Pi {
 		}
 	}	
 	
-	public HeightManager2 getHeightManager(){
+	public HeightManager3 getHeightManager(){
 		return myHeightManager;
 	}
 	
@@ -193,7 +194,7 @@ public class Pi {
 		turnRightStop();
 	}*/
 	
-	public void climbStart(){
+	/*public void climbStart(){
 		myHeightManager.setRunning(false);
 		myBottomMotor.setPower(1024);
 		myPiState.setBottomMotorPower(1024);
@@ -226,7 +227,7 @@ public class Pi {
 		myPiState.setBottomMotorState(0);
 		myHeightManager.setTargetHeight(myDistance.getDistance());
 		myHeightManager.setRunning(true);
-	}
+	}*/
 	
 	public void goToHeight(double newTargetHeight) {
 		myHeightManager.setTargetHeight(newTargetHeight);

@@ -1,5 +1,6 @@
 package pi;
 
+import Pi;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public class Executor implements Runnable{
 		backwardOn = 200;
 		backwardOff = 100;
 		turnforwardOn = 80;
-		turnbackwardOn = 180;
+		turnbackwardOnExtraTime = 180;
 		turnOff = 200;
 	}
 	
