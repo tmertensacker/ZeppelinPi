@@ -52,9 +52,9 @@ public class Pi {
 	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
 			Thread ex = new Thread(pi.getExecutor());
-			t.setDaemon(true);
-			hm.setDaemon(true);
-			ex.setDaemon(true);
+			//t.setDaemon(true);
+			//hm.setDaemon(true);
+			//ex.setDaemon(true);
 	 		t.start();
 			hm.start();
 			ex.start();
