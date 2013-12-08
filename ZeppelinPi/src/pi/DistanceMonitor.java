@@ -219,14 +219,16 @@ public class DistanceMonitor {
 	 */
 	public float getDistance() {
 		// N is the number of measurements.
+		long prevTime = 0;
+		int amount = 0;
 		int N = 10;
 		float[] measurements = new float[N];
-		for(int i = 0; i < N; i++){
-			measurements[i] = measureDistance();
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		while(amount < N){
+			long currTime = System.currentTimeMillis();
+			if((currTime - prevTime ) > 30){
+				measurements[amount] = measureDistance();
+				prevTime = currTime;
+				amount++;
 			}
 		}
 		// Sort the measurements and return the median from the sorted array.

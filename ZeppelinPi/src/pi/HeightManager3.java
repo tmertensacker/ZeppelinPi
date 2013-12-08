@@ -68,16 +68,16 @@ public class HeightManager3 implements Runnable {
 		for(int i=(error.length-1); i > 0; i--)
 			error[i] = error[i-1];
 		float newDistance = myDistance.getDistance();
-		try {
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("log.txt", true)));
-			out.write((int) newDistance);
-			out.close();
-		} catch(Exception e) {}
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("log.txt", true)));
+//			out.write((int) newDistance);
+//			out.close();
+//		} catch(Exception e) {}
+//		try {
+//			Thread.sleep(100);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		state.setCurrentHeight(newDistance);
 		error[0] = targetHeight - (double)newDistance;
 		System.out.println("newDistance: "+newDistance);
