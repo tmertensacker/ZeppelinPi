@@ -110,7 +110,7 @@ public class Pi {
 		myPiState.setRightMotorState(0);
 	}
 	
-	/*public void forward(int time) {
+	public void forward(int time) {
 		forwardStart();
 		try {
 			Thread.sleep(time);
@@ -118,7 +118,7 @@ public class Pi {
 		    Thread.currentThread().interrupt();
 		}
 		forwardStop();
-	}*/
+	}
 	
 	public void backwardStart(){
 		myLeftMotor.triggerBackwardOn();

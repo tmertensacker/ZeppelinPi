@@ -23,14 +23,18 @@ public class Executor implements Runnable{
 					String command = queue.poll();
 
 					if (command.contains("goforward ")) {
+						int constant = 100;
 						List<String> strings = Arrays.asList(command.split("\\s+"));
-						pi.forwardStart();
+						//for(int i = 0; i < strings.get(1)/100; i++);
+						pi.forward(100);
+						
+						/*pi.forwardStart();
 						try {
 							Thread.sleep(Integer.parseInt(strings.get(1)));
 						} catch(InterruptedException ex) {
 						    Thread.currentThread().interrupt();
 						}
-						pi.forwardStop();
+						pi.forwardStop();*/
 					}
 					else if (command.contains("gobackward ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
@@ -62,7 +66,7 @@ public class Executor implements Runnable{
 						}
 						pi.turnRightStop();
 					}
-					else if (command.contains("climb ")) {
+					/*else if (command.contains("climb ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.climbStart();
 						try {
@@ -81,7 +85,7 @@ public class Executor implements Runnable{
 						    Thread.currentThread().interrupt();
 						}
 						pi.descendStop();
-					}
+					}*/
 					/*else if(command.equals("forwardstart"))
 						pi.forwardStart();
 					else if(command.equals("forwardstop"))
