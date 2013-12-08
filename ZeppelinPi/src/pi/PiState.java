@@ -135,7 +135,7 @@ public class PiState{
 	
 	//TODO: tostring voor return-value
 	/**
-	 * Returns the current state of the PI: "bottomMotorState+' '+bottomMotorPowerPercentage+' '+rightMotorState+' '+leftMotorState+' '+height".
+	 * Returns the current state of the PI: "bottomMotorState+' '+bottomMotorPowerPercentage+' '+rightMotorState+' '+leftMotorState+' '+height+' '+targetheight".
 	 */
 	public String toString(){
 		return(getBottomMotorState() +" "+
