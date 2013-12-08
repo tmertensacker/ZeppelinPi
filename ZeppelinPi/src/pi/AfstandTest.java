@@ -1,10 +1,12 @@
 package pi;
 
+import java.util.Scanner;
 import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.RaspiPin;
+import java.io.*;
 
 public class AfstandTest implements Runnable {
-	int aantal = 30;
+	int aantal = 20;
 	MotorFixed myLeftMotor;
 	MotorFixed myRightMotor;
 	MotorPwm myBottomMotor;
@@ -22,21 +24,42 @@ public class AfstandTest implements Runnable {
 	//Motor4
 	Pin forw4 = RaspiPin.GPIO_14;
 	Pin back4 = RaspiPin.GPIO_12;
+	Scanner reader1;
+
 	public AfstandTest() {
 		myPiState = new PiState(minPower, maxPower);
 		myBottomMotor = new MotorPwm(forw1, back1);
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
+		reader1 = new Scanner(System.in);
 	}
-	public void main( String[] args) {
+	public static void main(String[] args) {
 		AfstandTest af = new AfstandTest();
 		Thread t = new Thread(af);
 		t.start();
 	}
 	
 	public void run(){
+		System.out.println("aantal cycli:");
+		aantal = reader1.nextInt();
+		System.out.println("aantal seconden terugdraaien");
+		int time = reader1.nextInt();
 		int i = 0;
-		while (i < aantal) {
+		try{
+			Process p = Runtime.getRuntime().exec("raspivid -o video.h264 -t 15000");
+			// met -n kan je instellen dat er geen preview getoond wordt en dat er dus meteen een foto genomen wordt
+		}
+		catch(IOException ieo){
+			ieo.printStackTrace();
+		}	
+	
+		try {
+			Thread.sleep(300);
+		}
+		 catch (InterruptedException e) {
+                }
+
+			while (i < aantal) {
 			try {
 				forwardStart();			
 				Thread.sleep(100);
@@ -48,6 +71,13 @@ public class AfstandTest implements Runnable {
 			}
 			i++;
 		}
+		backwardStart();
+		try {
+		Thread.sleep(time);
+		} catch (InterruptedException e) {
+		
+		}
+		backwardStop();
 	}
 	public void forwardStart(){
 		myLeftMotor.triggerForwardOn();

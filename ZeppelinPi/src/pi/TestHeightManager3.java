@@ -9,7 +9,7 @@ public class TestHeightManager3 {
 			Pin back1 = RaspiPin.GPIO_05;
 			MotorPwm myMotor = new MotorPwm(forw1, back1);
 			DistanceMonitor myDistance = new DistanceMonitor();
-			HeightManager3 myHM = new HeightManager3(myMotor, new PiState(820,1024), myDistance,820,1024);
+			HeightManager3 myHM = new HeightManager3(myMotor, new PiState(800,1024), myDistance,820,1024);
 			Thread tmyHM = new Thread(myHM);
 			tmyHM.start();
 			//Thread.sleep(200000);

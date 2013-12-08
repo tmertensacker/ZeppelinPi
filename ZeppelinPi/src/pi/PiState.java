@@ -34,6 +34,8 @@ public class PiState{
 	*/
 	private float currentHeight = 0;
 	
+	private float targetHeight = 0;
+	
 	private double maxPower = 0;
 	private double minPower = 0;
 	
@@ -80,6 +82,10 @@ public class PiState{
 		currentHeight = newCurrentHeight;
 	}
 	
+	public void setTargetHeight(float newTargetHeight){
+		targetHeight = newTargetHeight;
+	}
+	
 	/**
 	* Returns the state of the bottom motor. Either 0 , off, 1, on/forward or 2 on/backward.
 	*/
@@ -123,16 +129,21 @@ public class PiState{
 		return currentHeight;
 	}
 	
+	public float getTargetHeight(){
+		return targetHeight;
+	}
+	
 	//TODO: tostring voor return-value
 	/**
-	 * Returns the current state of the PI: "bottomMotorState+' '+bottomMotorPowerPercentage+' '+rightMotorState+' '+leftMotorState+' '+height".
+	 * Returns the current state of the PI: "bottomMotorState+' '+bottomMotorPowerPercentage+' '+rightMotorState+' '+leftMotorState+' '+height+' '+targetheight".
 	 */
 	public String toString(){
 		return(getBottomMotorState() +" "+
 				getBottomMotorPowerPercentage() +" "+
 				getRightMotorState() +" "+
 				getLeftMotorState() +" "+
-				getHeight());
+				getHeight() +" "+
+				getTargetHeight());
 	}
 	
 }	
