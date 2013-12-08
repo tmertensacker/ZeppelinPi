@@ -136,7 +136,14 @@ public class HeightManager3 implements Runnable {
 	}
 	public void stopRunning() {
 		running = false;
-		setPower(0);
+		
+		long prevTime = System.currentTimeMillis();
+		long currTime = System.currentTimeMillis();
+		while(currTime - prevTime > 1000){
+			currTime = System.currentTimeMillis();
+		}
+		heightmotor.setPower(0);
+		state.setBottomMotorPower(0);
 	}
 
 	public double getTargetHeight() {
