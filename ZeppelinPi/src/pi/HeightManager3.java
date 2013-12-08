@@ -65,7 +65,7 @@ public class HeightManager3 implements Runnable {
 			error[i] = error[i-1];
 		float newDistance = myDistance.getDistance();
 		try {
-			Thread.sleep(30);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

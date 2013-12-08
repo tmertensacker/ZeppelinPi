@@ -224,7 +224,7 @@ public class DistanceMonitor {
 		for(int i = 0; i < N; i++){
 			measurements[i] = measureDistance();
 			try {
-				Thread.sleep(30);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
