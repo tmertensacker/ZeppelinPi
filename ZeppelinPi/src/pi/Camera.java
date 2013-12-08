@@ -13,7 +13,9 @@ public Camera(){}
 */
 public void makePicture() throws IOException{
 	try{
-		Process p = Runtime.getRuntime().exec("raspistill -o picture.jpg -t 0");
+		File file = new File("picture.jpg");
+		file.delete();
+	    Runtime.getRuntime().exec("raspistill -o picture.jpg -t 0");
 		// met -n kan je instellen dat er geen preview getoond wordt en dat er dus meteen een foto genomen wordt
 	}
 	catch(IOException ieo){
