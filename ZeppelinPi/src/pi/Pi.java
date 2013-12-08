@@ -241,8 +241,10 @@ public class Pi {
 	}
 	
 	public void terminate() {
-		executor.stopExecuting();
 		myHeightManager.stopRunning();
+		
+		executor.stopExecuting();
+		
 		System.exit(0);
 	}
 	public double getTargetHeight() {
