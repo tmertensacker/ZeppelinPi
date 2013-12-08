@@ -135,8 +135,8 @@ public class HeightManager3 implements Runnable {
 		state.setBottomMotorPower((int)voltage);
 	}
 	public void stopRunning() {
-		setPower(0);
 		running = false;
+		setPower(0);
 	}
 
 	public double getTargetHeight() {
