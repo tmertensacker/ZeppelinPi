@@ -8,7 +8,7 @@ import com.pi4j.io.gpio.RaspiPin;
 
 
 public class Pi {
-	HeightManager3 myHeightManager;
+	HeightManager2 myHeightManager;
 	DistanceMonitor myDistance;
 	Camera myCamera;
 	MotorFixed myLeftMotor;
@@ -40,7 +40,7 @@ public class Pi {
 		//myPiState.setBottomMotorState(1);
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
-		myHeightManager = new HeightManager3(myBottomMotor,myPiState, myDistance, minPower, maxPower);
+		myHeightManager = new HeightManager2(myBottomMotor,myPiState, myDistance, minPower, maxPower);
 		executor = new Executor(this);
 	}
 	
@@ -61,7 +61,7 @@ public class Pi {
 		}
 	}	
 	
-	public HeightManager3 getHeightManager(){
+	public HeightManager2 getHeightManager(){
 		return myHeightManager;
 	}
 	
@@ -72,12 +72,12 @@ public class Pi {
 	private Executor getExecutor() {
 		return executor;
 	}
-	public float getHeight() {
+	/*public float getHeight() {
 		float returnHeight = myDistance.getDistance();
 		myPiState.setCurrentHeight(returnHeight);
 		return returnHeight;
 		
-	}
+	}*/
 	
 	public void takePicture() {
 		try {
