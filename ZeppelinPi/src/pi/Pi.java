@@ -1,4 +1,4 @@
-package pi;
+
 import java.io.IOException;
 
 import com.pi4j.io.gpio.Pin;
@@ -242,5 +242,13 @@ public class Pi {
 	}
 	public double getTargetHeight() {
 		return myHeightManager.getTargetHeight();
+	}
+	
+	public MotorFixed getLeftMotor() {
+		return myLeftMotor;
+	}
+	
+	public MotorFixed getRightMotor() {
+		return myRightMotor;
 	}
 }
