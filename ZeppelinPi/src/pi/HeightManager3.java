@@ -114,7 +114,8 @@ public class HeightManager3 implements Runnable {
 			voltage = maxPower;
 		if(voltage<minPower)
 			voltage = minPower;
-		heightmotor.setPower((int)voltage);
+		//heightmotor.setPower((int)voltage);
+		heightmotor.setPower(0);
 		state.setBottomMotorPower((int)voltage);
 	}
 }
