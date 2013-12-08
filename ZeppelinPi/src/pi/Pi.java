@@ -17,7 +17,6 @@ public class Pi {
 	final double maxPower = 1024;
 	final double minPower = 824;
 	PiState myPiState;
-	Executor executor;
 	
 	//Motor1
 	Pin forw1 = RaspiPin.GPIO_07;
@@ -41,7 +40,6 @@ public class Pi {
 		myLeftMotor = new MotorFixed(forw4, back4);
 		myRightMotor = new MotorFixed(forw2, back2);
 		myHeightManager = new HeightManager3(myBottomMotor,myPiState, myDistance, minPower, maxPower);
-		executor = new Executor(this);
 	}
 	
 	public static void main(String [] args)
@@ -51,13 +49,11 @@ public class Pi {
 		try{
 	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
-			Thread ex = new Thread(pi.getExecutor());
 			//t.setDaemon(true);
 			//hm.setDaemon(true);
 			//ex.setDaemon(true);
 	 		t.start();
 			hm.start();
-			ex.start();
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -68,13 +64,6 @@ public class Pi {
 		return myHeightManager;
 	}
 	
-	public void addCommand(String command) {
-		executor.addCommand(command);
-	}
-	
-	private Executor getExecutor() {
-		return executor;
-	}
 	/*public float getHeight() {
 		float returnHeight = myDistance.getDistance();
 		myPiState.setCurrentHeight(returnHeight);
@@ -91,7 +80,6 @@ public class Pi {
 	}
 	
 	public void stop() { //deze methode laat de zeppelin ogenblikkelijk stoppen met commandos uit te voeren, waarnaa hij terug bestuurbaar is door de pijltjestoetsen.
-		executor.clearQueue(); // al dan niet noodzakelijk..?
 		myLeftMotor.triggerForwardOff();
 		myLeftMotor.triggerBackwardOff();
 		myPiState.setLeftMotorState(0);
@@ -201,10 +189,7 @@ public class Pi {
 	}
 	
 	public void terminate() {
-		myHeightManager.stopRunning();
-		
-		executor.stopExecuting();
-		
+		myHeightManager.stopRunning();		
 		System.exit(0);
 	}
 	public double getTargetHeight() {

@@ -2,6 +2,7 @@ package pi;
 
 import java.net.*;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.io.*;
 
@@ -10,6 +11,8 @@ public class Listener implements Runnable
 	private ServerSocket serverSocket;
 	private Pi pi;
 	private boolean listening;
+	private LinkedList<String> queue = new LinkedList<String>();
+	private Thread t;
 	
 	public Listener(int port, Pi pi) throws IOException
 	{
@@ -21,6 +24,13 @@ public class Listener implements Runnable
 	public synchronized void run()
 	{
 		while(listening){
+			
+			if  ( t == null || (! queue.isEmpty() && ! t.isAlive())) {
+				String c = queue.poll();
+				t = new Thread(new Executor(pi, c));
+				t.start();
+			}
+			
 			try{
 				System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
 				Socket server = serverSocket.accept();
@@ -86,7 +96,7 @@ public class Listener implements Runnable
 				}
 				// nieuwe manier, via Thread!
 				else {
-					pi.addCommand(inMsg);
+					queue.add(inMsg);
 				}
 				// voorlopig in command -> vorige code!
 				/*

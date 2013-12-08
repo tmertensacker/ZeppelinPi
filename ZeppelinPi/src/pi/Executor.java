@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Executor implements Runnable{
 	
-	private LinkedList<String> queue;
-	private boolean executing;
+	private String command;
 	private Pi pi;
 	private int forwardOn;
 	private int forwardOff;
@@ -25,10 +24,10 @@ public class Executor implements Runnable{
 	private double extraBackwardParam = 0.4;
 	
 
-	public Executor(Pi pi) {
-		queue = new LinkedList<String>();
-		executing = false;
+	public Executor(Pi pi, String command) {
+		this.command = command;
 		this.pi = pi;
+		
 		forwardOn = 100;
 		forwardOff = 200;
 		backwardOn = 200;
@@ -42,63 +41,58 @@ public class Executor implements Runnable{
 	}
 	
 	public synchronized void run(){
-		executing = true;
-			while (executing) {
-				if (! queue.isEmpty()) {
-					String command = queue.poll();
+		if (command.contains("goforward ")) {
+			List<String> strings = Arrays.asList(command.split("\\s+"));
+			double distance = Integer.parseInt(strings.get(1).toString());
+			//nieuwe manier:
+			//omrekenen naar aantal pulsen:
+			double a = 0; // = ???
+			double b = 0.10;
+			double c = 0;
+			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+			forwardPulse((int)amount);
+			backward(getForwardStopTime(distance));
+		}
+		else if (command.contains("gobackward ")) {
+			List<String> strings = Arrays.asList(command.split("\\s+"));
+			double distance = Integer.parseInt(strings.get(1).toString());
+			//nieuwe manier:
+			//omrekenen naar aantal pulsen:
+			double a = 0; // = ???
+			double b = 0.10;
+			double c = 0;
+			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+			backwardPulse((int)amount);
+			forward(getForwardStopTime(distance));
+		}
+		else if (command.contains("turnleft ")) {
+			List<String> strings = Arrays.asList(command.split("\\s+"));
+			double angle = Integer.parseInt(strings.get(1).toString());
+			//nieuwe manier:
+			//omrekenen naar aantal pulsen:
+			double a = 0; // = ???
+			double b = 0.10;
+			double c = 0;
+			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+			turnLeftPulse((int)amount);
+			turnRightPulse(getTurnStopTime(angle));
+		}
+		else if (command.contains("turnright ")) {
+			List<String> strings = Arrays.asList(command.split("\\s+"));
+			double angle = Integer.parseInt(strings.get(1).toString());
+			//nieuwe manier:
+			//omrekenen naar aantal pulsen:
+			double a = 0; // = ???
+			double b = 0.10;
+			double c = 0;
+			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+			turnRightPulse((int)amount);
+			turnLeftPulse(getTurnStopTime(angle));
+		}
 
-					if (command.contains("goforward ")) {
-						List<String> strings = Arrays.asList(command.split("\\s+"));
-						double distance = Integer.parseInt(strings.get(1).toString());
-						//nieuwe manier:
-						//omrekenen naar aantal pulsen:
-						double a = 0; // = ???
-						double b = 0.10;
-						double c = 0;
-						double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-						forwardPulse((int)amount);
-						backward(getForwardStopTime(distance));
-					}
-					else if (command.contains("gobackward ")) {
-						List<String> strings = Arrays.asList(command.split("\\s+"));
-						double distance = Integer.parseInt(strings.get(1).toString());
-						//nieuwe manier:
-						//omrekenen naar aantal pulsen:
-						double a = 0; // = ???
-						double b = 0.10;
-						double c = 0;
-						double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-						backwardPulse((int)amount);
-						forward(getForwardStopTime(distance));
-					}
-					else if (command.contains("turnleft ")) {
-						List<String> strings = Arrays.asList(command.split("\\s+"));
-						double angle = Integer.parseInt(strings.get(1).toString());
-						//nieuwe manier:
-						//omrekenen naar aantal pulsen:
-						double a = 0; // = ???
-						double b = 0.10;
-						double c = 0;
-						double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-						turnLeftPulse((int)amount);
-						turnRightPulse(getTurnStopTime(angle));
-					}
-					else if (command.contains("turnright ")) {
-						List<String> strings = Arrays.asList(command.split("\\s+"));
-						double angle = Integer.parseInt(strings.get(1).toString());
-						//nieuwe manier:
-						//omrekenen naar aantal pulsen:
-						double a = 0; // = ???
-						double b = 0.10;
-						double c = 0;
-						double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-						turnRightPulse((int)amount);
-						turnLeftPulse(getTurnStopTime(angle));
-					}
-					
-					//vanaf hier: wordt allemaal opgelost in Listener!!! (oude code)
-					
-					/*else if (command.contains("climb ")) {
+		//vanaf hier: wordt allemaal opgelost in Listener!!! (oude code)
+
+		/*else if (command.contains("climb ")) {
 						List<String> strings = Arrays.asList(command.split("\\s+"));
 						pi.climbStart();
 						try {
@@ -153,28 +147,9 @@ public class Executor implements Runnable{
 							//onbekend commando
 						}
 					}*/
-					else {
-						// commando niet gevonden/verwerkt!
-					}
-				}
-			}
-		
-	}
-	
-	public void addCommand(String command) {
-		queue.offer(command);
-	}
-	
-	public void stopExecuting() {
-		this.executing = false;
-	}
-	
-	public void startExecuting() {
-		this.executing = true;
-	}
-	
-	public void clearQueue() {
-		queue.clear();
+		else {
+			// commando niet gevonden/verwerkt!
+		}
 	}
 	
 	public void forwardPulse(int amount) {
