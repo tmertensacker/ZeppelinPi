@@ -35,7 +35,7 @@ public class HeightManager3 implements Runnable {
 		while(running){
 			double pid;
 			calcError();
-			state.setCurrentHeight((float)error[0]);
+			
 			pid = pTerm * error[0];
 			accumulator += error[0];
 			pid += iTerm * accumulator;
@@ -64,6 +64,7 @@ public class HeightManager3 implements Runnable {
 		for(int i=(error.length-1); i > 0; i--)
 			error[i] = error[i-1];
 		double newDistance = myDistance.getDistance();
+		state.setCurrentHeight((float)newDistance);
 		error[0] = targetHeight - newDistance;
 		System.out.println("newDistance: "+newDistance);
 	}
