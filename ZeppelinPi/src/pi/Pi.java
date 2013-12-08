@@ -51,13 +51,13 @@ public class Pi {
 		try{
 	 		Thread t = new Thread(new Listener(port, pi));
 			Thread hm = new Thread(pi.getHeightManager());
-			//Thread ex = new Thread(pi.getExecutor());
+			Thread ex = new Thread(pi.getExecutor());
 			//t.setDaemon(true);
 			//hm.setDaemon(true);
 			//ex.setDaemon(true);
 	 		t.start();
 			hm.start();
-			//ex.start();
+			ex.start();
 		}
 		catch(IOException e){
 			e.printStackTrace();
@@ -91,7 +91,6 @@ public class Pi {
 	}
 	
 	public void stop() { //deze methode laat de zeppelin ogenblikkelijk stoppen met commandos uit te voeren, waarnaa hij terug bestuurbaar is door de pijltjestoetsen.
-		//executor.stopExecuting();
 		executor.clearQueue(); // al dan niet noodzakelijk..?
 		myLeftMotor.triggerForwardOff();
 		myLeftMotor.triggerBackwardOff();
