@@ -9,11 +9,25 @@ public class Executor implements Runnable{
 	private LinkedList<String> queue;
 	private boolean executing;
 	private Pi pi;
+	private int forwardOn;
+	private int forwardOff;
+	private int backwardOn;
+	private int backwardOff;
+	private int turnforwardOn;
+	private int turnbackwardOnExtraTime;
+	private int turnOff;
 
 	public Executor(Pi pi) {
 		queue = new LinkedList<String>();
 		executing = false;
 		this.pi = pi;
+		forwardOn = 100;
+		forwardOff = 200;
+		backwardOn = 200;
+		backwardOff = 100;
+		turnforwardOn = 80;
+		turnbackwardOn = 180;
+		turnOff = 200;
 	}
 	
 	public synchronized void run(){
@@ -139,5 +153,45 @@ public class Executor implements Runnable{
 	
 	public void clearQueue() {
 		queue.clear();
+	}
+	
+	public void forwardPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.forwardStart();
+			waitForXMillis(forwardOn);
+			pi.forwardStop();
+			waitForXMillis(forwardOff);
+		}
+	}
+	
+	public void backwardPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.backwardStart();
+			waitForXMillis(backwardOn);
+			pi.backwardStop();
+			waitForXMillis(backwardOff);
+		}
+	}
+	
+	public void turRightPulse(int amount) {
+		for (int i = 0; i < amount; i++) {
+			pi.getRightMotor().triggerBackwardOn();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getLeftMotor().triggerForwardOn();
+			waitForXMillis(turnforwardOn);
+			pi.getLeftMotor().triggerForwardOff();
+			waitForXMillis(turnbackwardOnExtraTime);
+			pi.getRightMotor().triggerBackwardOff();
+			waitForXMillis(turnOff);
+		}
+	}
+	
+	public void waitForXMillis(int number) {
+		try {
+			Thread.sleep(number);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

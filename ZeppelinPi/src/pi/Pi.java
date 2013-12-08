@@ -243,4 +243,12 @@ public class Pi {
 	public double getTargetHeight() {
 		return myHeightManager.getTargetHeight();
 	}
+	
+	public MotorFixed getLeftMotor() {
+		return myLeftMotor;
+	}
+	
+	public MotorFixed getRightMotor() {
+		return myRightMotor;
+	}
 }
