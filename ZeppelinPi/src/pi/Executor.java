@@ -62,7 +62,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			backwardPulse((int)amount);
+			backwardPulse((int)(amount/3000));
 			forward(getBackwardStopTime(distance));
 		}
 		else if (command.contains("turnleft ")) {
