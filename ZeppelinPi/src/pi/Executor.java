@@ -19,7 +19,7 @@ public class Executor implements Runnable{
 	private double forwardStopParam; // = parameter om tot stilstand te komen, voorwaarts vliegen
 	private final double backwardTreshold = 100; // = afstand vanaf waar snelheid constant blijft.
 	private double backwardStopParam; // = parameter om tot stilstand te komen, achterwaarts vliegen
-	private final double turnTreshold = 90; // = hoek vanaf waar hoeksnelheid constant blijft.
+	private final double turnTreshold = 45; // = hoek vanaf waar hoeksnelheid constant blijft.
 	private double turnStopParam; // = parameter om tot stilstand te komen, draaien.
 	private double extraBackwardParam = 0.7;
 	
@@ -37,7 +37,7 @@ public class Executor implements Runnable{
 		turnOff = 200;
 		forwardStopParam = 23.3333;
 		backwardStopParam = 8;
-		turnStopParam = 8;
+		turnStopParam = 12;
 	}
 	
 	public synchronized void run(){
