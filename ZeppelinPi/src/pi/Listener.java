@@ -52,6 +52,7 @@ public class Listener implements Runnable
 					outData.writeUTF(result);
 				}
 				else if(inMsg.contains("stop")) {
+					queue.clear();
 					pi.stop();
 				}
 				else if(inMsg.equals("forwardstart")) 

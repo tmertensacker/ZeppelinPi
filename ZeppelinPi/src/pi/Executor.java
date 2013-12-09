@@ -49,21 +49,42 @@ public class Executor implements Runnable{
 			double a = -0.04; // = ???
 			double b = 43;
 			double c = 1535;
-			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			forwardPulse(((int)amount-getForwardStopTime(distance))/300);
-			backward(getForwardStopTime(distance));
+			if (distance > 100) { // if volledig weg indien faalt,inclusief body -> TODO
+				distance = distance/2;
+				double amount = a * Math.pow(distance, 2) + b * distance + c;
+				forwardPulse((int)((amount-getForwardStopTime(distance))/300));
+				backward(getForwardStopTime(distance));
+				forwardPulse((int)((amount-getForwardStopTime(distance))/300));
+				backward(getForwardStopTime(distance));
+			}
+			else { // "else weg, body blijft -> TODO
+				double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+				backwardPulse((int)((amount-getBackwardStopTime(distance))/300));
+				forward(getBackwardStopTime(distance));
+			}
 		}
 		else if (command.contains("gobackward ")) {
 			List<String> strings = Arrays.asList(command.split("\\s+"));
-			double distance = Integer.parseInt(strings.get(1).toString());
+			double distance = Double.parseDouble(strings.get(1).toString());
 			//nieuwe manier:
 			//omrekenen naar aantal pulsen:
 			double a = -0.04; // = ???
 			double b = 43;
 			double c = 1535;
-			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
-			forward(getBackwardStopTime(distance));
+			if (distance > 100) {
+				distance = distance/2;
+				double amount = a * Math.pow(distance, 2) + b * distance + c;
+				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
+				forward(getBackwardStopTime(distance));
+				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
+				forward(getBackwardStopTime(distance));
+			}
+			else {
+				double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
+				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
+				forward(getBackwardStopTime(distance));
+			}
+			
 		}
 		else if (command.contains("turnleft ")) {
 			List<String> strings = Arrays.asList(command.split("\\s+"));
