@@ -58,9 +58,9 @@ public class Executor implements Runnable{
 			double distance = Integer.parseInt(strings.get(1).toString());
 			//nieuwe manier:
 			//omrekenen naar aantal pulsen:
-			double a = 0; // = ???
-			double b = 0.10;
-			double c = 0;
+			double a = -0.04; // = ???
+			double b = 43;
+			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
 			backwardPulse((int)amount);
 			forward(getBackwardStopTime(distance));
