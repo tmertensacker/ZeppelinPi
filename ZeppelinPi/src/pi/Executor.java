@@ -17,11 +17,11 @@ public class Executor implements Runnable{
 	private int turnOff;
 	private final double forwardTreshold = 150; // = afstand vanaf waar snelheid constant blijft.
 	private double forwardStopParam; // = parameter om tot stilstand te komen, voorwaarts vliegen
-	private final double backwardTreshold = 150; // = afstand vanaf waar snelheid constant blijft.
+	private final double backwardTreshold = 100; // = afstand vanaf waar snelheid constant blijft.
 	private double backwardStopParam; // = parameter om tot stilstand te komen, achterwaarts vliegen
 	private final double turnTreshold = 90; // = hoek vanaf waar hoeksnelheid constant blijft.
 	private double turnStopParam; // = parameter om tot stilstand te komen, draaien.
-	private double extraBackwardParam = 0.4;
+	private double extraBackwardParam = 0.7;
 	
 
 	public Executor(Pi pi, String command) {
@@ -36,8 +36,8 @@ public class Executor implements Runnable{
 		turnbackwardOnExtraTime = 50;
 		turnOff = 200;
 		forwardStopParam = 23.3333;
-		backwardStopParam = 10;
-		turnStopParam = 10;
+		backwardStopParam = 8;
+		turnStopParam = 8;
 	}
 	
 	public synchronized void run(){
@@ -74,7 +74,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380*2));
+			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380*1.7));
 			turnRight(getTurnStopTime(angle));
 		}
 		else if (command.contains("turnright ")) {
@@ -86,7 +86,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnRightPulse((int)((amount-getTurnStopTime(angle))/380*2));
+			turnRightPulse((int)((amount-getTurnStopTime(angle))/380*1.7));
 			turnLeft(getTurnStopTime(angle));
 		}
 
