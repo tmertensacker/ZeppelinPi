@@ -35,7 +35,7 @@ public class Executor implements Runnable{
 		turnforwardOn = 80;
 		turnbackwardOnExtraTime = 50;
 		turnOff = 200;
-		forwardStopParam = 25;
+		forwardStopParam = 30;
 		backwardStopParam = 8;
 		turnStopParam = 12;
 	}
