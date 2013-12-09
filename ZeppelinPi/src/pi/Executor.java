@@ -36,7 +36,7 @@ public class Executor implements Runnable{
 		turnbackwardOnExtraTime = 50;
 		turnOff = 200;
 		forwardStopParam = 23.3333;
-		backwardStopParam = 7;
+		backwardStopParam = 10;
 		turnStopParam = 10;
 	}
 	
@@ -62,7 +62,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			backwardPulse((int)((amount-getBackwardStopTime(distance))/700*2));
+			backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
 			forward(getBackwardStopTime(distance));
 		}
 		else if (command.contains("turnleft ")) {
@@ -74,8 +74,8 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380));
-			turnRightPulse(getTurnStopTime(angle));
+			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380*2));
+			turnRight(getTurnStopTime(angle));
 		}
 		else if (command.contains("turnright ")) {
 			List<String> strings = Arrays.asList(command.split("\\s+"));
@@ -86,8 +86,8 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnRightPulse((int)((amount-getTurnStopTime(angle))/380));
-			turnLeftPulse(getTurnStopTime(angle));
+			turnRightPulse((int)((amount-getTurnStopTime(angle))/380*2));
+			turnLeft(getTurnStopTime(angle));
 		}
 
 		//vanaf hier: wordt allemaal opgelost in Listener!!! (oude code)
