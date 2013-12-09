@@ -71,7 +71,7 @@ public class Executor implements Runnable{
 			double a = -0.04; // = ???
 			double b = 43;
 			double c = 1535;
-			if (distance > 100) {
+			if (distance > 100) { // if volledig weg indien faalt,inclusief body -> TODO
 				distance = distance/2;
 				double amount = a * Math.pow(distance, 2) + b * distance + c;
 				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
@@ -79,7 +79,7 @@ public class Executor implements Runnable{
 				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
 				forward(getBackwardStopTime(distance));
 			}
-			else {
+			else { // "else weg, body blijft -> TODO
 				double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
 				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
 				forward(getBackwardStopTime(distance));
