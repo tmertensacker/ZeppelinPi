@@ -30,13 +30,13 @@ public class Executor implements Runnable{
 		
 		forwardOn = 100;
 		forwardOff = 200;
-		backwardOn = 350;
+		backwardOn = 600;
 		backwardOff = 100;
 		turnforwardOn = 80;
 		turnbackwardOnExtraTime = 50;
 		turnOff = 200;
 		forwardStopParam = 23.3333;
-		backwardStopParam = 10;
+		backwardStopParam = 7;
 		turnStopParam = 10;
 	}
 	
@@ -62,7 +62,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			backwardPulse((int)((amount-getBackwardStopTime(distance))/450));
+			backwardPulse((int)((amount-getBackwardStopTime(distance))/700));
 			forward(getBackwardStopTime(distance));
 		}
 		else if (command.contains("turnleft ")) {
