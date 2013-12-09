@@ -80,15 +80,15 @@ public class Listener implements Runnable
 //					pi.turnLeftStop();
 				else if(inMsg.contains("stayatheight")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
-					pi.goToHeight(Integer.parseInt(strings.get(1)));
+					pi.goToHeight(Double.parseDouble(strings.get(1)));
 				}
 				else if (inMsg.contains("climb ")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
-					pi.goToHeight(pi.getTargetHeight() + Integer.parseInt(strings.get(1)));
+					pi.goToHeight(pi.getTargetHeight() + Double.parseDouble(strings.get(1)));
 				}
 				else if (inMsg.contains("descend ")) {
 					List<String> strings = Arrays.asList(inMsg.split("\\s+"));
-					pi.goToHeight(pi.getTargetHeight() - Integer.parseInt(strings.get(1)));
+					pi.goToHeight(pi.getTargetHeight() - Double.parseDouble(strings.get(1)));
 				}
 				else if(inMsg.equals("terminate")) {
 					stopListening();
