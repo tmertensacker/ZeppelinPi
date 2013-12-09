@@ -50,7 +50,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			forwardPulse((int)amount/300);
+			forwardPulse(((int)amount-getForwardStopTime(distance))/300);
 			backward(getForwardStopTime(distance));
 		}
 		else if (command.contains("gobackward ")) {
@@ -62,7 +62,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			backwardPulse((int)(amount/450));
+			backwardPulse((int)((amount-getBackwardStopTime(distance))/450));
 			forward(getBackwardStopTime(distance));
 		}
 		else if (command.contains("turnleft ")) {
@@ -74,7 +74,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnLeftPulse((int)(amount/380));
+			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380));
 			turnRightPulse(getTurnStopTime(angle));
 		}
 		else if (command.contains("turnright ")) {
@@ -86,7 +86,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnRightPulse((int)(amount/380));
+			turnRightPulse((int)((amount-getTurnStopTime(angle))/380));
 			turnLeftPulse(getTurnStopTime(angle));
 		}
 
