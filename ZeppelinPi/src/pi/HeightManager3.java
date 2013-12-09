@@ -23,12 +23,12 @@ public class HeightManager3 implements Runnable {
 		myDistance = distanceMonitor;
 		this.maxPower = maxPower;
 		this.minPower = minPower;
-		this.targetHeight = 80;
 		this.heightmotor = heightMotor;
 		this.direction = 0;
 		this.state = pistate;
 		this.error = new double[10];
 		this.accumulator = 0;
+		setTargetHeight(80);
 	}
 	
 	private double pTerm = 2;
