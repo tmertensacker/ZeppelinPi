@@ -19,9 +19,9 @@ public class Executor implements Runnable{
 	private double forwardStopParam; // = parameter om tot stilstand te komen, voorwaarts vliegen
 	private final double backwardTreshold = 100; // = afstand vanaf waar snelheid constant blijft.
 	private double backwardStopParam; // = parameter om tot stilstand te komen, achterwaarts vliegen
-	private final double turnTreshold = 45; // = hoek vanaf waar hoeksnelheid constant blijft.
+	private final double turnTreshold = 60; // = hoek vanaf waar hoeksnelheid constant blijft.
 	private double turnStopParam; // = parameter om tot stilstand te komen, draaien.
-	private double extraBackwardParam = 0.7;
+	private double extraBackwardParam = 0.8;
 	
 
 	public Executor(Pi pi, String command) {
@@ -35,9 +35,9 @@ public class Executor implements Runnable{
 		turnforwardOn = 80;
 		turnbackwardOnExtraTime = 50;
 		turnOff = 200;
-		forwardStopParam = 23.3333;
+		forwardStopParam = 25;
 		backwardStopParam = 8;
-		turnStopParam = 12;
+		turnStopParam = 13;
 	}
 	
 	public synchronized void run(){
@@ -59,8 +59,8 @@ public class Executor implements Runnable{
 			}
 			else { // "else weg, body blijft -> TODO
 				double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-				backwardPulse((int)((amount-getBackwardStopTime(distance))/300));
-				forward(getBackwardStopTime(distance));
+				forwardPulse((int)((amount-getBackwardStopTime(distance))/300));
+				backward(getBackwardStopTime(distance));
 			}
 		}
 		else if (command.contains("gobackward ")) {
@@ -71,7 +71,7 @@ public class Executor implements Runnable{
 			double a = -0.04; // = ???
 			double b = 43;
 			double c = 1535;
-			if (distance > 100) { // if volledig weg indien faalt,inclusief body -> TODO
+			if (distance > 100) { // if volledig weg indien faalt, inclusief body -> TODO
 				distance = distance/2;
 				double amount = a * Math.pow(distance, 2) + b * distance + c;
 				backwardPulse((int)((amount-getBackwardStopTime(distance))/475));
