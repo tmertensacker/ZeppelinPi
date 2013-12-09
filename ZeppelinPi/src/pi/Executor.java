@@ -19,7 +19,7 @@ public class Executor implements Runnable{
 	private double forwardStopParam; // = parameter om tot stilstand te komen, voorwaarts vliegen
 	private final double backwardTreshold = 100; // = afstand vanaf waar snelheid constant blijft.
 	private double backwardStopParam; // = parameter om tot stilstand te komen, achterwaarts vliegen
-	private final double turnTreshold = 60; // = hoek vanaf waar hoeksnelheid constant blijft.
+	private final double turnTreshold = 80; // = hoek vanaf waar hoeksnelheid constant blijft.
 	private double turnStopParam; // = parameter om tot stilstand te komen, draaien.
 	private double extraBackwardParam = 0.8;
 	
@@ -37,7 +37,7 @@ public class Executor implements Runnable{
 		turnOff = 200;
 		forwardStopParam = 25;
 		backwardStopParam = 8;
-		turnStopParam = 13;
+		turnStopParam = 12;
 	}
 	
 	public synchronized void run(){
@@ -60,7 +60,7 @@ public class Executor implements Runnable{
 			else { // "else weg, body blijft -> TODO
 				double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
 				forwardPulse((int)((amount-getBackwardStopTime(distance))/300));
-				backward(getBackwardStopTime(distance));
+				backward(getForwardStopTime(distance));
 			}
 		}
 		else if (command.contains("gobackward ")) {
@@ -95,7 +95,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380*1.7));
+			turnLeftPulse((int)((amount-getTurnStopTime(angle))/380*1.2));
 			turnRight(getTurnStopTime(angle));
 		}
 		else if (command.contains("turnright ")) {
@@ -107,7 +107,7 @@ public class Executor implements Runnable{
 			double b = 43;
 			double c = 1535;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
-			turnRightPulse((int)((amount-getTurnStopTime(angle))/380*1.7));
+			turnRightPulse((int)((amount-getTurnStopTime(angle))/380*1.2));
 			turnLeft(getTurnStopTime(angle));
 		}
 
