@@ -30,7 +30,7 @@ public class Executor implements Runnable{
 		
 		forwardOn = 100;
 		forwardOff = 200;
-		backwardOn = 200;
+		backwardOn = 350;
 		backwardOff = 100;
 		turnforwardOn = 80;
 		turnbackwardOnExtraTime = 50;
@@ -63,7 +63,7 @@ public class Executor implements Runnable{
 			double c = 0;
 			double amount = a * Math.pow(Integer.parseInt(strings.get(1).toString()), 2) + b * Integer.parseInt(strings.get(1).toString()) + c;
 			backwardPulse((int)amount);
-			forward(getForwardStopTime(distance));
+			forward(getBackwardStopTime(distance));
 		}
 		else if (command.contains("turnleft ")) {
 			List<String> strings = Arrays.asList(command.split("\\s+"));
