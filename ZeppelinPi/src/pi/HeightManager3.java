@@ -122,7 +122,7 @@ public class HeightManager3 implements Runnable {
 	
 	public void setTargetHeight(double newTargetHeight){
 		targetHeight = newTargetHeight;
-		//state.setTargetHeight((float) newTargetHeight);
+		state.setTargetHeight((float) newTargetHeight);
 	}
 	
 	private void setPower(double voltage) {
