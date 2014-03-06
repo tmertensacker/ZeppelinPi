@@ -15,7 +15,14 @@ public void makePicture() throws IOException{
 	try{
 		File file = new File("picture.jpg");
 		file.delete();
-	    Process p = Runtime.getRuntime().exec("raspistill -o picture.jpg -t 0");
+		/*
+		 * -o <filename>	output naar <filename>
+		 * -n				no preview
+		 * -w <size>		width van de foto
+		 * -h <size>		height van de foto
+		 * -t <time>		betekent <time> seconden wachten voor foto genomen wordt
+		 */
+	    Process p = Runtime.getRuntime().exec("raspistill -o picture.jpg -n -w 750 -h 562 -t 0");
 	    try {
 			p.waitFor();
 		} catch (InterruptedException e) {
@@ -27,7 +34,6 @@ public void makePicture() throws IOException{
 //		while(currTime - prevTime > 3000){
 //			currTime = System.currentTimeMillis();
 //		}
-			// met -n kan je instellen dat er geen preview getoond wordt en dat er dus meteen een foto genomen wordt
 	}
 	catch(IOException ieo){
 		ieo.printStackTrace();
